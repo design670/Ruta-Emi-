@@ -9,12 +9,21 @@ export interface ModuloBase {
   descripcion: string;
 }
 
+export interface ColorSchemeRuta {
+  bg: string;
+  badge: string;
+  tag: string;
+  text: string;
+  textMuted: string;
+}
+
 export interface ModuloRuta extends ModuloBase {
   destacada?: boolean;
   esCatalogo?: false;
   cursos: number;
   duracion: string;
   temas: string[];
+  colorScheme?: ColorSchemeRuta;
 }
 
 export interface ModuloCatalogo extends ModuloBase {
@@ -42,7 +51,7 @@ export interface CasoListado {
   casoRef?: string;
 }
 
-export type RecursoIcono = 'doc' | 'chart' | 'link';
+export type RecursoIcono = 'doc' | 'chart' | 'link' | 'video' | 'calculator' | 'checklist';
 
 export interface Recurso {
   tipo: string;
@@ -54,7 +63,8 @@ export interface PasoMetodologia {
   numero: string;
   titulo: string;
   descripcion: string;
-  cita: string;
+  accent: string;
+  textClass: string;
 }
 
 // ---- Formularios de autenticación ----

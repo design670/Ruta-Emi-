@@ -1,6 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronRight, BookOpen } from 'lucide-react';
+import {
+  Menu,
+  X,
+  ChevronRight,
+  ChevronLeft,
+  BookOpen,
+  BarChart3,
+  Link2,
+  Video,
+  Calculator,
+  ClipboardCheck,
+} from 'lucide-react';
 import heroPhoto from '../assets/hero-photo-2.avif';
 import logoRutaEmi from '../assets/logo-ruta-emi.svg';
 import casoImg1 from '../assets/casos-clinicos/caso-1.avif';
@@ -8,7 +19,18 @@ import casoImg9 from '../assets/casos-clinicos/caso-9.avif';
 import casoImg13 from '../assets/casos-clinicos/caso-13.avif';
 import casoImg4 from '../assets/casos-clinicos/caso-4.avif';
 import soporteVitalImg from '../assets/soporte-vital.jpg';
+import valoracionClinicaImg from '../assets/valoracion-clinica.jpg';
+import llamadoAccionImg from '../assets/llamado-accion.jpg';
 import type { Modulo, ModuloRuta, CasoClinico, CasoListado, Recurso, PasoMetodologia, Vista } from '../types';
+
+const esquemaTealIntenso = { bg: 'bg-teal-600', badge: 'bg-teal-800 text-teal-100', tag: 'bg-teal-800 text-teal-100', text: 'text-white', textMuted: 'text-white/80' };
+const esquemaAzulClaro = { bg: 'bg-blue-50 border border-blue-100', badge: 'bg-blue-200 text-blue-800', tag: 'bg-blue-200 text-blue-800', text: 'text-slate-900', textMuted: 'text-slate-600' };
+const esquemaVioletaIntenso = { bg: 'bg-violet-800', badge: 'bg-violet-900 text-violet-100', tag: 'bg-violet-900 text-violet-100', text: 'text-white', textMuted: 'text-white/80' };
+const esquemaNaranjaIntenso = { bg: 'bg-orange-500', badge: 'bg-orange-700 text-orange-100', tag: 'bg-orange-700 text-orange-100', text: 'text-white', textMuted: 'text-white/80' };
+const esquemaRosaClaro = { bg: 'bg-pink-50 border border-pink-100', badge: 'bg-pink-200 text-pink-800', tag: 'bg-pink-200 text-pink-800', text: 'text-slate-900', textMuted: 'text-slate-600' };
+const esquemaAzulIntenso = { bg: 'bg-[#0D2967]', badge: 'bg-white/15 text-white', tag: 'bg-white/15 text-white', text: 'text-white', textMuted: 'text-white/80' };
+const esquemaTurquesaIntenso = { bg: 'bg-cyan-600', badge: 'bg-cyan-800 text-cyan-100', tag: 'bg-cyan-800 text-cyan-100', text: 'text-white', textMuted: 'text-white/80' };
+const esquemaMoradoClaro = { bg: 'bg-violet-50 border border-violet-100', badge: 'bg-violet-200 text-violet-900', tag: 'bg-violet-200 text-violet-900', text: 'text-slate-900', textMuted: 'text-slate-600' };
 
 const modulos: Modulo[] = [
   {
@@ -16,8 +38,7 @@ const modulos: Modulo[] = [
     destacada: true,
     badge: 'RUTA DESTACADA',
     titulo: 'Manejo Integral en Urgencias y Soporte Vital Avanzado',
-    descripcion:
-      'Itinerario intensivo enfocado en la estabilización rápida, toma de decisiones bajo presión y abordaje protocolizado del paciente.',
+    descripcion: 'Fortalece la estabilización inicial y la toma de decisiones ante situaciones críticas.',
     cursos: 12,
     duracion: '20 semanas',
     temas: ['Estabilización rápida', 'Soporte vital avanzado', 'Toma de decisiones bajo presión'],
@@ -26,8 +47,7 @@ const modulos: Modulo[] = [
     id: 'medicina-interna',
     badge: 'MEDICINA INTERNA',
     titulo: 'Razonamiento Clínico y Diagnóstico Diferencial Metódico',
-    descripcion:
-      'Entrenamiento metodológico para construir diagnósticos diferenciales sólidos a partir de la presentación clínica.',
+    descripcion: 'Desarrolla un criterio ordenado para analizar síntomas y orientar diagnósticos diferenciales.',
     cursos: 8,
     duracion: '14 semanas',
     temas: ['Anamnesis dirigida', 'Diagnóstico diferencial', 'Razonamiento clínico'],
@@ -36,8 +56,7 @@ const modulos: Modulo[] = [
     id: 'farmacologia',
     badge: 'FARMACOLOGÍA',
     titulo: 'Prescripción Segura, Antimicrobianos y Farmacoterapia',
-    descripcion:
-      'Guía práctica para la selección racional de fármacos, dosificación y prevención de eventos adversos.',
+    descripcion: 'Refuerza la selección, dosificación y uso seguro de los medicamentos.',
     cursos: 9,
     duracion: '12 semanas',
     temas: ['Antimicrobianos', 'Interacciones farmacológicas', 'Dosificación segura'],
@@ -48,6 +67,95 @@ const modulos: Modulo[] = [
     badge: 'CATÁLOGO COMPLETO',
     titulo: 'Explorar todas las rutas',
     descripcion: 'Conoce todos los itinerarios disponibles.',
+  },
+];
+
+// Catálogo completo de rutas (página interna "Todas las rutas") — estructura reutilizable para agregar más rutas.
+const rutasFormativas: ModuloRuta[] = [
+  {
+    id: 'urgencias',
+    destacada: true,
+    badge: 'RUTA DESTACADA',
+    titulo: 'Manejo Integral en Urgencias y Soporte Vital Avanzado',
+    descripcion:
+      'Itinerario intensivo enfocado en la estabilización rápida, toma de decisiones bajo presión y abordaje protocolizado del paciente.',
+    cursos: 12,
+    duracion: '20 semanas',
+    temas: ['Estabilización rápida', 'Soporte vital avanzado', 'Toma de decisiones bajo presión'],
+    colorScheme: esquemaTealIntenso,
+  },
+  {
+    id: 'medicina-interna',
+    badge: 'MEDICINA INTERNA',
+    titulo: 'Razonamiento Clínico y Diagnóstico Diferencial Metódico',
+    descripcion:
+      'Entrenamiento metodológico para construir diagnósticos diferenciales sólidos a partir de la presentación clínica.',
+    cursos: 8,
+    duracion: '14 semanas',
+    temas: ['Anamnesis dirigida', 'Diagnóstico diferencial', 'Razonamiento clínico'],
+    colorScheme: esquemaAzulClaro,
+  },
+  {
+    id: 'farmacologia',
+    badge: 'FARMACOLOGÍA',
+    titulo: 'Prescripción Segura, Antimicrobianos y Farmacoterapia',
+    descripcion:
+      'Guía práctica para la selección racional de fármacos, dosificación y prevención de eventos adversos.',
+    cursos: 9,
+    duracion: '12 semanas',
+    temas: ['Antimicrobianos', 'Interacciones farmacológicas', 'Dosificación segura'],
+    colorScheme: esquemaVioletaIntenso,
+  },
+  {
+    id: 'pediatria',
+    badge: 'PEDIATRÍA',
+    titulo: 'Abordaje Integral de Urgencias Pediátricas',
+    descripcion:
+      'Formación práctica para reconocer signos de alarma, priorizar la atención y responder ante las urgencias pediátricas más frecuentes.',
+    cursos: 8,
+    duracion: '12 semanas',
+    temas: ['Evaluación pediátrica', 'Dificultad respiratoria', 'Signos de alarma'],
+    colorScheme: esquemaNaranjaIntenso,
+  },
+  {
+    id: 'ginecoobstetricia',
+    badge: 'GINECOOBSTETRICIA',
+    titulo: 'Atención Inicial de Urgencias Ginecoobstétricas',
+    descripcion: 'Ruta enfocada en la identificación temprana y el abordaje inicial de situaciones críticas durante el embarazo.',
+    cursos: 7,
+    duracion: '10 semanas',
+    temas: ['Hemorragia obstétrica', 'Trastornos hipertensivos', 'Evaluación materna'],
+    colorScheme: esquemaRosaClaro,
+  },
+  {
+    id: 'cardiologia',
+    badge: 'CARDIOLOGÍA',
+    titulo: 'Evaluación y Manejo Inicial del Paciente Cardiovascular',
+    descripcion: 'Desarrolla criterios para reconocer, evaluar y actuar ante las principales urgencias cardiovasculares.',
+    cursos: 8,
+    duracion: '12 semanas',
+    temas: ['Dolor torácico', 'Electrocardiografía', 'Arritmias'],
+    colorScheme: esquemaAzulIntenso,
+  },
+  {
+    id: 'trauma',
+    badge: 'TRAUMA',
+    titulo: 'Atención Inicial del Paciente Politraumatizado',
+    descripcion: 'Aprende a realizar una valoración ordenada y a priorizar intervenciones durante la atención inicial del trauma.',
+    cursos: 9,
+    duracion: '14 semanas',
+    temas: ['Evaluación primaria', 'Manejo inicial del trauma', 'Inmovilización'],
+    colorScheme: esquemaTurquesaIntenso,
+  },
+  {
+    id: 'seguridad-paciente',
+    badge: 'SEGURIDAD DEL PACIENTE',
+    titulo: 'Prácticas Seguras y Calidad en la Atención Clínica',
+    descripcion: 'Fortalece la prevención de riesgos, la comunicación clínica y la toma de decisiones orientada a una atención segura.',
+    cursos: 6,
+    duracion: '8 semanas',
+    temas: ['Eventos adversos', 'Comunicación clínica', 'Gestión del riesgo'],
+    colorScheme: esquemaMoradoClaro,
   },
 ];
 
@@ -124,26 +232,46 @@ const recursos: Recurso[] = [
   { tipo: 'PDF y Guías', descripcion: 'Protocolos, guías de manejo y resúmenes clínicos descargables.', icono: 'doc' },
   { tipo: 'Infografías', descripcion: 'Conceptos complejos sintetizados en formato visual y memorable.', icono: 'chart' },
   { tipo: 'Enlaces', descripcion: 'Recursos complementarios, artículos y referencias actualizadas.', icono: 'link' },
+  { tipo: 'Videos formativos', descripcion: 'Procedimientos y razonamiento clínico explicados paso a paso.', icono: 'video' },
+  { tipo: 'Calculadoras clínicas', descripcion: 'Herramientas interactivas para dosis, escalas y puntajes de riesgo.', icono: 'calculator' },
+  { tipo: 'Checklists y protocolos', descripcion: 'Listas de verificación rápidas para la práctica diaria.', icono: 'checklist' },
 ];
 
 const pasosMetodologia: PasoMetodologia[] = [
   {
     numero: '01',
-    titulo: 'Elige tu ruta',
-    descripcion: 'Selecciona el itinerario que mejor responda a tu momento formativo y tus objetivos clínicos.',
-    cita: 'Empieza desde tu nivel actual y avanza con una dirección definida.',
+    titulo: 'Elige tu curso',
+    descripcion: 'Selecciona la formación que mejor responde a tus objetivos profesionales.',
+    accent: 'bg-violet-800',
+    textClass: 'text-white',
   },
   {
     numero: '02',
-    titulo: 'Avanza por módulos',
-    descripcion: 'Recorre lecciones concisas diseñadas para asimilar conceptos clave sin saturación teórica.',
-    cita: 'Cada módulo conecta nuevos conocimientos con lo aprendido anteriormente.',
+    titulo: 'Revisa el contenido',
+    descripcion: 'Conoce los módulos, recursos y actividades que componen el curso.',
+    accent: 'bg-[#0D2967]',
+    textClass: 'text-white',
   },
   {
     numero: '03',
-    titulo: 'Aplica lo aprendido',
-    descripcion: 'Resuelve casos clínicos interactivos y utiliza herramientas de apoyo en tus decisiones reales.',
-    cita: 'Fortalece tu criterio antes de enfrentarte a situaciones clínicas reales.',
+    titulo: 'Avanza paso a paso',
+    descripcion: 'Completa cada módulo siguiendo el orden establecido.',
+    accent: 'bg-[#2BBCEA]',
+    textClass: 'text-[#0D2967]',
+  },
+  {
+    numero: '04',
+    titulo: 'Pon a prueba lo aprendido',
+    descripcion: 'Realiza las actividades y evaluaciones correspondientes.',
+    accent: 'bg-orange-500',
+    textClass: 'text-white',
+  },
+  {
+    numero: '05',
+    titulo: 'Completa tu formación',
+    descripcion: 'Finaliza el recorrido y obtén tu certificado.',
+    accent: 'bg-teal-600',
+    textClass: 'text-white',
   },
 ];
 
@@ -159,13 +287,86 @@ const patronDiagonal = {
     'repeating-linear-gradient(135deg, rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 2px, transparent 2px, transparent 14px)',
 };
 
+interface PasoCardInteractivaProps {
+  paso: PasoMetodologia;
+  idx: number;
+  isActive: boolean;
+  onActivate: (idx: number) => void;
+  cardRef: (el: HTMLDivElement | null) => void;
+}
+
+function PasoCardInteractiva({ paso, idx, isActive, onActivate, cardRef }: PasoCardInteractivaProps) {
+  return (
+    <div
+      ref={cardRef}
+      role="button"
+      tabIndex={0}
+      aria-pressed={isActive}
+      aria-label={`${paso.numero}. ${paso.titulo}`}
+      onClick={() => onActivate(idx)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onActivate(idx);
+        }
+      }}
+      className={`relative overflow-hidden rounded-2xl border cursor-pointer select-none h-[280px] md:h-[300px] w-full max-w-[200px] mx-auto transition-all duration-500 motion-reduce:transition-none motion-reduce:transform-none focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+        isActive
+          ? '-translate-y-2 scale-[1.02] shadow-2xl border-transparent'
+          : 'border-slate-800 hover:border-slate-700'
+      }`}
+    >
+      <div className="absolute inset-0 bg-slate-900" />
+      <div
+        className={`absolute inset-0 ${paso.accent} origin-bottom transition-transform duration-[600ms] ease-out motion-reduce:transition-none ${
+          isActive ? 'scale-y-100' : 'scale-y-0'
+        }`}
+      />
+      <div
+        className={`relative z-10 h-full flex flex-col p-5 transition-colors duration-500 motion-reduce:transition-none ${
+          isActive ? paso.textClass : 'text-white/60'
+        }`}
+      >
+        <span className="text-lg font-bold opacity-90">{paso.numero}</span>
+        <div className="mt-auto">
+          <h3 className="text-sm font-bold mb-1.5 leading-snug">{paso.titulo}</h3>
+          <p className={`text-xs leading-relaxed transition-opacity duration-500 ${isActive ? 'opacity-90' : 'opacity-70'}`}>
+            {paso.descripcion}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Landing() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [headerScroll, setHeaderScroll] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
   const [modalModulo, setModalModulo] = useState<Modulo | null>(null);
   const [modalCaso, setModalCaso] = useState<CasoClinico | null>(null);
   const [vistaActual, setVistaActual] = useState<Vista>('landing');
+  const [activeStep, setActiveStep] = useState(0);
+  const pasoCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const recursosScrollRef = useRef<HTMLDivElement>(null);
+  const modalTriggerRef = useRef<HTMLElement | null>(null);
+
+  const cerrarModalModulo = () => setModalModulo(null);
+  const modalScheme = modalModulo && !modalModulo.esCatalogo ? modalModulo.colorScheme ?? esquemaAzulClaro : esquemaAzulClaro;
+
+  const activarPaso = (idx: number) => {
+    setActiveStep(idx);
+    const card = pasoCardRefs.current[idx];
+    if (card && window.innerWidth < 768) {
+      card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  };
+
+  const desplazarRecursos = (direccion: 'izquierda' | 'derecha') => {
+    const contenedor = recursosScrollRef.current;
+    if (!contenedor) return;
+    const distancia = contenedor.clientWidth * 0.8;
+    contenedor.scrollBy({ left: direccion === 'derecha' ? distancia : -distancia, behavior: 'smooth' });
+  };
 
   const irATodosLosCasos = () => {
     setVistaActual('casos');
@@ -191,6 +392,19 @@ export default function Landing() {
   }, [modalModulo, modalCaso]);
 
   useEffect(() => {
+    if (!modalModulo) {
+      modalTriggerRef.current?.focus();
+      modalTriggerRef.current = null;
+      return;
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setModalModulo(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalModulo]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setHeaderScroll(window.scrollY > 50);
     };
@@ -203,9 +417,6 @@ export default function Landing() {
     element?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
-
-  const destacado = modulos[0] as ModuloRuta;
-  const rutasFormativas = modulos.filter((m): m is ModuloRuta => !m.esCatalogo);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 font-sans">
@@ -226,6 +437,15 @@ export default function Landing() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+        }
+
+        .no-scrollbar {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
         }
 
         .route-line {
@@ -257,6 +477,68 @@ export default function Landing() {
         .card-hover:hover {
           transform: translateY(-8px);
           box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        .ruta-preview-card {
+          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1), box-shadow 0.35s cubic-bezier(0.23, 1, 0.320, 1),
+            filter 0.35s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-preview-card:hover {
+          transform: translateY(-8px) scale(1.015);
+          box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+          filter: brightness(1.06);
+        }
+
+        .ruta-preview-content {
+          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-preview-card:hover .ruta-preview-content {
+          transform: translateY(-4px);
+        }
+
+        .ruta-preview-img {
+          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-preview-card:hover .ruta-preview-img {
+          transform: scale(1.04);
+        }
+
+        .ruta-preview-arrow {
+          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-preview-card:hover .ruta-preview-arrow {
+          transform: translateX(4px);
+        }
+
+        .ruta-card {
+          transition: transform 0.45s cubic-bezier(0.23, 1, 0.320, 1), box-shadow 0.45s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+        }
+
+        .ruta-card-img {
+          transition: transform 0.45s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-card:hover .ruta-card-img {
+          transform: scale(1.04);
+        }
+
+        .ruta-card-fill {
+          transform: scaleY(0);
+          transform-origin: bottom;
+          transition: transform 0.45s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .ruta-card:hover .ruta-card-fill {
+          transform: scaleY(1);
         }
 
         .btn-primary {
@@ -364,9 +646,10 @@ export default function Landing() {
             </Link>
             <Link
               to="/registro"
-              className="btn-primary px-6 py-2.5 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-lg font-medium text-sm"
+              className="btn-primary px-6 py-2.5 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-full font-medium text-sm inline-flex items-center gap-2"
             >
               Registrarme
+              <ChevronRight size={16} />
             </Link>
           </div>
 
@@ -416,9 +699,10 @@ export default function Landing() {
                 </Link>
                 <Link
                   to="/registro"
-                  className="block w-full py-2.5 text-center bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-lg font-medium text-sm"
+                  className="w-full py-2.5 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-full font-medium text-sm inline-flex items-center justify-center gap-2"
                 >
                   Registrarme
+                  <ChevronRight size={16} />
                 </Link>
               </div>
             </div>
@@ -429,45 +713,49 @@ export default function Landing() {
       {vistaActual === 'landing' && (
         <>
           {/* Hero Section */}
-          <section id="inicio" className="relative overflow-hidden">
-            <div className="absolute inset-0">
-              <img
-                src={heroPhoto}
-                alt="Profesional médico trabajando en laptop"
-                className="w-full h-full object-cover scale-x-[-1]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/30" />
-            </div>
-
-            <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-24 md:pt-36 md:pb-32">
-              <div className="fade-in max-w-2xl space-y-8">
-                <div>
-                  <div className="inline-block mb-4 px-4 py-2 bg-slate-950/70 border border-white/10 text-white rounded-full text-xs font-semibold tracking-wide">
-                    ACADEMIA DE FORMACIÓN MÉDICA
-                  </div>
-                  <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white mb-6">
-                    Una ruta clara para
-                    <br />
-                    llevar tu conocimiento
-                    <br />
-                    a la práctica
-                  </h1>
-                  <p className="text-lg text-white/80 leading-relaxed max-w-xl">
-                    Cursos, casos clínicos y recursos organizados para ayudarte a avanzar con claridad.
-                  </p>
+          <section id="inicio" className="px-6 pt-6 pb-16 md:pt-8 md:pb-20">
+            <div className="max-w-7xl mx-auto">
+              <div className="relative overflow-hidden rounded-3xl">
+                <div className="absolute inset-0">
+                  <img
+                    src={heroPhoto}
+                    alt="Profesional médico trabajando en laptop"
+                    className="w-full h-full object-cover scale-x-[-1]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/30" />
                 </div>
 
-                <div className="flex flex-wrap items-center gap-5">
-                  <button className="btn-primary pl-8 pr-2 py-2 bg-white text-slate-900 rounded-full font-semibold flex items-center gap-4 hover:shadow-xl">
-                    Explorar la ruta
-                    <span className="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center">
-                      <ChevronRight size={18} />
-                    </span>
-                  </button>
-                  <span className="text-sm text-white/70 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-                    Ruta 100% interactivo
-                  </span>
+                <div className="relative px-8 py-16 md:px-14 md:py-24">
+                  <div className="fade-in max-w-2xl space-y-8">
+                    <div>
+                      <div className="inline-block mb-4 px-4 py-2 bg-slate-950/70 border border-white/10 text-white rounded-full text-xs font-semibold tracking-wide">
+                        ACADEMIA DE FORMACIÓN MÉDICA
+                      </div>
+                      <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white mb-6">
+                        Una ruta clara para
+                        <br />
+                        llevar tu conocimiento
+                        <br />
+                        a la práctica
+                      </h1>
+                      <p className="text-lg text-white/80 leading-relaxed max-w-xl">
+                        Cursos, casos clínicos y recursos organizados para ayudarte a avanzar con claridad.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-5">
+                      <button className="btn-primary pl-8 pr-2 py-2 bg-white text-slate-900 rounded-full font-semibold flex items-center gap-4 hover:shadow-xl">
+                        Explorar la ruta
+                        <span className="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center">
+                          <ChevronRight size={18} />
+                        </span>
+                      </button>
+                      <span className="text-sm text-white/70 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                        Ruta 100% interactivo
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -482,87 +770,76 @@ export default function Landing() {
                     SOBRE RUTA EMI
                   </div>
                   <h2 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
-                    Aprender medicina también necesita una dirección clara
+                    Tu formación médica, guiada paso a paso
                   </h2>
                 </div>
                 <div className="space-y-6 md:pt-14">
                   <p className="text-lg text-slate-600 leading-relaxed">
-                    Ruta EMI organiza el aprendizaje mediante recorridos progresivos, casos clínicos y recursos
-                    aplicables para ayudarte a consolidar criterio médico y tomar decisiones con seguridad.
+                    Ruta EMI organiza tu proceso de formación en cinco pasos claros para que sepas qué hacer, cómo
+                    avanzar y cuándo completar cada etapa.
                   </p>
-                  <button className="btn-primary px-6 py-3 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-full font-semibold inline-flex items-center gap-2">
-                    Conoce la metodología
+                  <button
+                    onClick={() => {
+                      setActiveStep(0);
+                      document.getElementById('ruta-pasos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    className="btn-primary px-6 py-3 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-full font-semibold inline-flex items-center gap-2"
+                  >
+                    Conoce los 5 pasos
                     <ChevronRight size={18} />
                   </button>
                 </div>
               </div>
 
-              {/* Tarjeta oscura de metodología */}
-              <div className="bg-slate-950 rounded-3xl p-8 md:p-10">
+              {/* Tarjeta oscura: guía de 5 pasos */}
+              <div id="ruta-pasos" className="bg-slate-950 rounded-3xl p-8 md:p-10 scroll-mt-24">
                 <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
                   <div className="inline-block px-4 py-1.5 bg-violet-800 text-violet-100 rounded-full text-xs font-bold tracking-wide">
-                    METODOLOGÍA EN 3 PASOS
+                    TU RUTA EN 5 PASOS
                   </div>
-                  <p className="text-sm text-white/50">De la teoría a la práctica clínica</p>
+                  <p className="text-sm text-white/50">Una guía clara para avanzar de principio a fin</p>
                 </div>
 
-                {/* Indicador de progreso */}
-                <div className="flex items-center mb-8 px-1">
-                  {[0, 1, 2].map((i) => (
-                    <React.Fragment key={i}>
-                      <div
-                        className={`w-3 h-3 rounded-full flex-shrink-0 transition-colors ${
-                          i === activeStep ? 'bg-teal-400' : 'bg-white/20'
-                        }`}
-                      />
-                      {i < 2 && <div className="flex-1 h-px bg-white/15 mx-2" />}
-                    </React.Fragment>
-                  ))}
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-6">
-                  {pasosMetodologia.map((paso, idx) => {
-                    const isActive = idx === activeStep;
-                    const activeColor = ['bg-teal-600', 'bg-violet-800', 'bg-orange-500'][idx % 3];
-
-                    return (
+                {/* Línea de recorrido: indicadores interactivos sincronizados con las cards */}
+                <div className="relative mb-6 px-2">
+                  <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-px bg-white/15" />
+                  <div
+                    className={`absolute left-2 top-1/2 -translate-y-1/2 h-px transition-all duration-500 motion-reduce:transition-none ${pasosMetodologia[activeStep].accent}`}
+                    style={{ width: `calc((100% - 1rem) * ${activeStep / (pasosMetodologia.length - 1)})` }}
+                  />
+                  <div className="relative grid grid-cols-5 gap-4">
+                    {pasosMetodologia.map((paso, idx) => (
                       <button
                         key={idx}
-                        onClick={() => setActiveStep(idx)}
-                        className={`text-left rounded-2xl p-6 transition-all border ${
-                          isActive
-                            ? `${activeColor} border-transparent shadow-xl`
-                            : 'bg-slate-900 border-slate-800 hover:border-slate-700'
-                        }`}
+                        type="button"
+                        aria-label={`Ir al paso ${paso.numero}`}
+                        aria-current={idx === activeStep}
+                        onClick={() => activarPaso(idx)}
+                        className="flex items-center justify-center py-1 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                       >
-                        <div className="flex items-start justify-between mb-4">
-                          <span className={`text-3xl font-bold ${isActive ? 'text-white' : 'text-slate-600'}`}>
-                            {paso.numero}
-                          </span>
-                          {isActive && (
-                            <span className="px-3 py-1 bg-white text-slate-900 rounded-full text-[10px] font-bold uppercase tracking-wide">
-                              Paso activo
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-2">{paso.titulo}</h3>
-                        <p className={`text-sm leading-relaxed mb-4 ${isActive ? 'text-white/90' : 'text-slate-400'}`}>
-                          {paso.descripcion}
-                        </p>
-
-                        {isActive ? (
-                          <div className="flex items-center justify-between gap-3 pt-4 border-t border-white/20">
-                            <p className="text-xs italic text-white/80">&quot;{paso.cita}&quot;</p>
-                            <span className="w-9 h-9 flex-shrink-0 rounded-full bg-white/20 flex items-center justify-center">
-                              <ChevronRight size={16} className="text-white" />
-                            </span>
-                          </div>
-                        ) : (
-                          <p className="text-xs text-slate-500">Haz clic para ver</p>
-                        )}
+                        <span
+                          className={`w-3 h-3 rounded-full ring-4 ring-slate-950 transition-colors duration-500 motion-reduce:transition-none ${
+                            idx === activeStep ? paso.accent : 'bg-white/25'
+                          }`}
+                        />
                       </button>
-                    );
-                  })}
+                    ))}
+                  </div>
+                </div>
+
+                {/* Cards: fila única en escritorio, scroll-snap en móvil */}
+                <div className="flex md:grid md:grid-cols-5 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0">
+                  {pasosMetodologia.map((paso, idx) => (
+                    <div key={idx} className="snap-start flex-shrink-0 w-[72%] sm:w-[45%] md:w-full">
+                      <PasoCardInteractiva
+                        paso={paso}
+                        idx={idx}
+                        isActive={idx === activeStep}
+                        onActivate={activarPaso}
+                        cardRef={(el) => (pasoCardRefs.current[idx] = el)}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -571,173 +848,115 @@ export default function Landing() {
           {/* Rutas Formativas */}
           <section id="rutas-formativas" className="py-24 md:py-32 px-6">
             <div className="max-w-7xl mx-auto">
-              <div className="mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Rutas formativas</h2>
+              {/* Banner con la info general */}
+              <div className="bg-violet-950 rounded-3xl p-8 md:p-12 mb-12">
+                <div className="inline-block mb-4 px-4 py-1.5 bg-teal-800 text-teal-100 rounded-full text-xs font-bold tracking-wide">
+                  ITINERARIOS DE ESPECIALIZACIÓN
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Certifícate en la Ruta EMI</h2>
+                <p className="text-lg text-white/70 max-w-2xl leading-relaxed mb-8">
+                  Tres itinerarios especializados con cursos, casos clínicos y recursos aplicados. Elegí el que
+                  mejor responda a tu momento formativo y avanzá a tu ritmo.
+                </p>
+                <div className="flex flex-wrap gap-8 md:gap-12 pt-6 border-t border-white/10">
+                  <div>
+                    <div className="text-3xl font-bold text-white">3</div>
+                    <p className="text-sm text-white/60">Rutas disponibles</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-white">29</div>
+                    <p className="text-sm text-white/60">Cursos en total</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-white">12–20</div>
+                    <p className="text-sm text-white/60">Semanas por ruta</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8 md:items-stretch">
-                {/* Módulo destacado */}
-                <button
-                  onClick={() => setModalModulo(destacado)}
-                  className="card-hover text-left flex flex-col rounded-2xl overflow-hidden bg-teal-600 min-h-[520px] md:min-h-0"
-                >
-                  <div className="p-8 flex-1">
-                    <div className="flex items-start justify-between mb-6">
-                      <span className="inline-block px-3 py-1.5 bg-blue-100 text-blue-800 rounded-full text-xs font-bold tracking-wide">
-                        {destacado.badge}
-                      </span>
-                      <span className="w-9 h-9 flex-shrink-0 rounded-full bg-white flex items-center justify-center">
-                        <ChevronRight size={18} className="text-slate-900" />
-                      </span>
-                    </div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-snug">{destacado.titulo}</h3>
-                    <p className="text-white/85 text-sm leading-relaxed">{destacado.descripcion}</p>
-                  </div>
-                  <div className="relative flex-1 min-h-[220px] bg-teal-800 overflow-hidden">
-                    <img
-                      src={soporteVitalImg}
-                      alt="Soporte vital avanzado"
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-teal-800/30" />
-                  </div>
-                </button>
+              {/* 4 tarjetas iguales: las 3 rutas son solo vista previa (imagen + ficha editorial), "Explorar todas las rutas" es la única clicable */}
+              <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0 pb-2 sm:pb-0">
+                {modulos.map((modulo) => {
+                  const isCatalogo = !!modulo.esCatalogo;
+                  const isFarmacologia = modulo.id === 'farmacologia';
+                  const isMedicinaInterna = modulo.id === 'medicina-interna';
+                  const isUrgencias = modulo.id === 'urgencias';
 
-                {/* Columna derecha: 3 módulos */}
-                <div className="flex flex-col gap-6">
-                  {modulos.slice(1).map((modulo) => {
-                    const isCatalogo = !!modulo.esCatalogo;
-                    const isFarmacologia = modulo.id === 'farmacologia';
-
+                  if (isCatalogo) {
                     return (
                       <button
                         key={modulo.id}
-                        onClick={() => (isCatalogo ? irATodasLasRutas() : setModalModulo(modulo))}
-                        className={`card-hover text-left flex-1 rounded-2xl p-6 flex items-start justify-between gap-4 ${
-                          isCatalogo ? 'bg-[#2BBCEA]' : isFarmacologia ? 'bg-violet-800' : 'bg-blue-100'
-                        }`}
+                        onClick={irATodasLasRutas}
+                        aria-label="Explorar todas las rutas"
+                        className="ruta-preview-card relative text-left flex flex-col justify-between overflow-hidden rounded-2xl p-6 h-[360px] cursor-pointer bg-[#2BBCEA] flex-shrink-0 w-[78%] sm:w-auto snap-start"
                       >
-                        <div className="flex-1">
+                        <div className="relative flex items-start justify-end">
+                          <span className="ruta-preview-arrow w-9 h-9 flex-shrink-0 rounded-full flex items-center justify-center bg-white">
+                            <ChevronRight size={18} className="text-[#0D2967]" />
+                          </span>
+                        </div>
+                        <div className="ruta-preview-content relative">
+                          <h3 className="font-bold mb-2 leading-snug text-xl text-white">{modulo.titulo}</h3>
+                          <p className="text-sm leading-relaxed line-clamp-3 text-white/80">{modulo.descripcion}</p>
+                        </div>
+                      </button>
+                    );
+                  }
+
+                  const imagenSrc = isUrgencias ? soporteVitalImg : isMedicinaInterna ? valoracionClinicaImg : casoImg13;
+                  const imagenAlt = isUrgencias
+                    ? 'Soporte vital avanzado'
+                    : isMedicinaInterna
+                    ? 'Valoración clínica'
+                    : 'Farmacoterapia y prescripción segura';
+
+                  const fillClase = isFarmacologia ? 'bg-violet-800' : isMedicinaInterna ? 'bg-blue-100' : 'bg-teal-600';
+                  const categoriaClase = isFarmacologia
+                    ? 'text-violet-700'
+                    : isMedicinaInterna
+                    ? 'text-blue-600'
+                    : 'text-teal-600';
+                  const categoriaHoverClase = isMedicinaInterna ? '' : 'group-hover:text-white';
+                  const tituloHoverClase = isMedicinaInterna ? '' : 'group-hover:text-white';
+                  const descHoverClase = isMedicinaInterna ? 'group-hover:text-slate-700' : 'group-hover:text-white/85';
+
+                  return (
+                    <div
+                      key={modulo.id}
+                      className="ruta-card group flex flex-col overflow-hidden rounded-2xl h-[360px] cursor-default flex-shrink-0 w-[78%] sm:w-auto snap-start"
+                    >
+                      <div className="relative h-[48%] overflow-hidden rounded-t-2xl">
+                        <img src={imagenSrc} alt={imagenAlt} className="ruta-card-img absolute inset-0 w-full h-full object-cover" />
+                      </div>
+                      <div className="relative h-[52%] overflow-hidden rounded-b-2xl bg-white">
+                        <div className={`ruta-card-fill absolute inset-0 ${fillClase}`} />
+                        <div className="relative h-full flex flex-col justify-center px-6 py-5">
                           <span
-                            className={`inline-block px-3 py-1.5 rounded-full text-xs font-bold tracking-wide mb-3 ${
-                              isCatalogo
-                                ? 'bg-white text-[#0D2967]'
-                                : isFarmacologia
-                                ? 'bg-orange-100 text-orange-800'
-                                : 'bg-white text-blue-800'
-                            }`}
+                            className={`text-xs font-bold uppercase tracking-wide mb-2 transition-colors duration-[450ms] ${categoriaClase} ${categoriaHoverClase}`}
                           >
                             {modulo.badge}
                           </span>
                           <h3
-                            className={`font-bold mb-1.5 leading-snug ${
-                              isCatalogo || isFarmacologia ? 'text-white text-xl' : 'text-slate-900 text-lg'
-                            }`}
+                            className={`text-lg font-bold leading-snug mb-1.5 text-[#0D2967] transition-colors duration-[450ms] ${tituloHoverClase}`}
                           >
                             {modulo.titulo}
                           </h3>
                           <p
-                            className={`text-sm leading-relaxed line-clamp-2 ${
-                              isCatalogo || isFarmacologia ? 'text-white/80' : 'text-slate-600'
-                            }`}
+                            className={`text-sm leading-relaxed line-clamp-3 text-slate-500 transition-colors duration-[450ms] ${descHoverClase}`}
                           >
                             {modulo.descripcion}
                           </p>
                         </div>
-                        <span
-                          className={`w-9 h-9 flex-shrink-0 rounded-full flex items-center justify-center ${
-                            isCatalogo || isFarmacologia ? 'bg-white' : 'bg-slate-900'
-                          }`}
-                        >
-                          <ChevronRight
-                            size={18}
-                            className={isCatalogo ? 'text-[#0D2967]' : isFarmacologia ? 'text-violet-800' : 'text-white'}
-                          />
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </section>
 
-          {/* Overlay de módulo */}
-          {modalModulo && (
-            <div
-              className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-6"
-              onClick={() => setModalModulo(null)}
-            >
-              <div
-                className="bg-white rounded-3xl max-w-xl w-full max-h-[85vh] overflow-y-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div
-                  className={`p-8 relative ${
-                    modalModulo.id === 'farmacologia'
-                      ? 'bg-violet-800'
-                      : modalModulo.id === 'urgencias'
-                      ? 'bg-teal-600'
-                      : 'bg-blue-100'
-                  }`}
-                >
-                  <button
-                    onClick={() => setModalModulo(null)}
-                    className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition"
-                  >
-                    <X size={18} className={modalModulo.id === 'medicina-interna' ? 'text-slate-900' : 'text-white'} />
-                  </button>
-                  <span
-                    className={`inline-block px-3 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4 ${
-                      modalModulo.id === 'medicina-interna' ? 'bg-white text-blue-800' : 'bg-white/20 text-white'
-                    }`}
-                  >
-                    {modalModulo.badge}
-                  </span>
-                  <h3
-                    className={`text-2xl md:text-3xl font-bold leading-snug ${
-                      modalModulo.id === 'medicina-interna' ? 'text-slate-900' : 'text-white'
-                    }`}
-                  >
-                    {modalModulo.titulo}
-                  </h3>
-                </div>
-
-                <div className="p-8">
-                  <p className="text-slate-600 leading-relaxed mb-6">{modalModulo.descripcion}</p>
-
-                  {!modalModulo.esCatalogo && (
-                    <>
-                      <div className="flex gap-8 py-6 border-t border-slate-200 mb-6">
-                        <div>
-                          <p className="text-xs text-slate-500 font-medium mb-1">Cursos</p>
-                          <p className="text-2xl font-bold text-slate-900">{modalModulo.cursos}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-slate-500 font-medium mb-1">Duración</p>
-                          <p className="text-2xl font-bold text-slate-900">{modalModulo.duracion}</p>
-                        </div>
-                      </div>
-                      <p className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">Temas</p>
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {modalModulo.temas.map((tema, i) => (
-                          <span key={i} className="px-3 py-1.5 bg-slate-100 text-slate-700 text-xs rounded-lg font-medium">
-                            {tema}
-                          </span>
-                        ))}
-                      </div>
-                      <button className="w-full py-3.5 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-lg font-semibold">
-                        Consultar ruta completa
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Casos Clínicos */}
-          <section id="casos" className="py-24 md:py-32 px-6 bg-white">
+          <section id="casos" className="pt-24 md:pt-32 pb-16 md:pb-20 px-6 bg-white">
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
                 <div>
@@ -776,11 +995,6 @@ export default function Landing() {
                         />
                         <div className={`absolute inset-0 bg-gradient-to-br ${scheme.overlay} opacity-40`} />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent" />
-                        <span
-                          className={`absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${scheme.badge}`}
-                        >
-                          {caso.especialidad}
-                        </span>
                         <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-slate-950/60 text-white">
                           {caso.paciente}
                         </span>
@@ -881,17 +1095,74 @@ export default function Landing() {
             </div>
           )}
 
-          {/* Recursos */}
-          <section id="recursos" className="py-24 md:py-32 px-6 bg-gradient-to-b from-slate-50 to-white">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Recursos Educativos</h2>
-                <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                  Herramientas complementarias para profundizar y consolidar tu aprendizaje.
-                </p>
+          {/* Da el siguiente paso */}
+          <section className="pt-16 md:pt-20 pb-24 md:pb-32 px-6 bg-white">
+            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+              {/* Composición visual: fotografía */}
+              <div className="order-2 md:order-1 relative rounded-3xl overflow-hidden h-[560px] md:h-[640px]">
+                <img
+                  src={llamadoAccionImg}
+                  alt="Profesional de la salud de Ruta EMI"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
+              {/* Texto */}
+              <div className="order-1 md:order-2">
+                <div className="inline-block mb-4 px-4 py-2 bg-[#C2F2FF] text-[#0D2967] rounded-full text-xs font-bold tracking-wide">
+                  DA EL SIGUIENTE PASO
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                  Tu próxima ruta comienza aquí
+                </h2>
+                <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                  Elige el curso que necesitas y continúa avanzando en tu formación médica.
+                </p>
+                <button
+                  onClick={() => scrollToSection('rutas-formativas')}
+                  className="btn-primary px-6 py-3.5 bg-violet-800 text-white rounded-full font-semibold inline-flex items-center gap-3"
+                >
+                  Explorar cursos
+                  <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center">
+                    <ChevronRight size={16} />
+                  </span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Recursos */}
+          <section id="recursos" className="py-24 md:py-32 px-6 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Recursos Educativos</h2>
+                  <p className="text-lg text-slate-600 max-w-2xl">
+                    Herramientas complementarias para profundizar y consolidar tu aprendizaje.
+                  </p>
+                </div>
+                <div className="hidden sm:flex gap-3 flex-shrink-0">
+                  <button
+                    onClick={() => desplazarRecursos('izquierda')}
+                    aria-label="Ver recursos anteriores"
+                    className="w-11 h-11 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 transition flex items-center justify-center"
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+                  <button
+                    onClick={() => desplazarRecursos('derecha')}
+                    aria-label="Ver más recursos"
+                    className="w-11 h-11 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 transition flex items-center justify-center"
+                  >
+                    <ChevronRight size={18} />
+                  </button>
+                </div>
+              </div>
+
+              <div
+                ref={recursosScrollRef}
+                className="no-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pt-4 pb-8 -mx-6 px-6 -mt-4"
+              >
                 {recursos.map((recurso, idx) => {
                   const scheme = [
                     'bg-gradient-to-br from-emerald-600 to-emerald-700',
@@ -899,23 +1170,27 @@ export default function Landing() {
                     'bg-gradient-to-br from-violet-700 to-violet-800',
                   ][idx % 3];
 
+                  const Icono =
+                    recurso.icono === 'doc'
+                      ? BookOpen
+                      : recurso.icono === 'chart'
+                      ? BarChart3
+                      : recurso.icono === 'link'
+                      ? Link2
+                      : recurso.icono === 'video'
+                      ? Video
+                      : recurso.icono === 'calculator'
+                      ? Calculator
+                      : ClipboardCheck;
+
                   return (
-                    <div key={recurso.tipo} className={`card-hover rounded-2xl p-8 text-white ${scheme}`}>
+                    <div
+                      key={recurso.tipo}
+                      className={`card-hover snap-start flex-shrink-0 w-[280px] sm:w-[320px] rounded-2xl p-8 text-white ${scheme}`}
+                    >
                       <div className="mb-6">
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/15 border-2 border-white/30 mb-4">
-                          {recurso.icono === 'doc' ? (
-                            <BookOpen className="text-white" size={32} />
-                          ) : recurso.icono === 'chart' ? (
-                            <svg className="text-white" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <line x1="12" y1="5" x2="12" y2="19" />
-                              <polyline points="19 12 12 19 5 12" />
-                            </svg>
-                          ) : (
-                            <svg className="text-white" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <circle cx="12" cy="12" r="10" />
-                              <path d="M12 16v-4m0-4h.01" />
-                            </svg>
-                          )}
+                          <Icono className="text-white" size={32} />
                         </div>
                       </div>
                       <h3 className="text-xl font-bold text-white mb-3">{recurso.tipo}</h3>
@@ -945,13 +1220,16 @@ export default function Landing() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/registro"
-                  className="btn-primary px-8 py-4 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-lg font-semibold text-lg text-center"
+                  className="btn-primary px-8 py-4 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-full font-semibold text-lg inline-flex items-center justify-center gap-3"
                 >
                   Crear mi cuenta
+                  <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <ChevronRight size={16} />
+                  </span>
                 </Link>
                 <Link
                   to="/iniciar-sesion"
-                  className="px-8 py-4 border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition text-lg text-center"
+                  className="px-8 py-4 border-2 border-slate-300 text-slate-700 rounded-full font-semibold hover:bg-slate-50 transition text-lg text-center"
                 >
                   Ya tengo una cuenta
                 </Link>
@@ -1081,40 +1359,20 @@ export default function Landing() {
               cubiertos.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
               {rutasFormativas.map((modulo) => {
-                const scheme =
-                  modulo.id === 'urgencias'
-                    ? {
-                        bg: 'bg-teal-600',
-                        badge: 'bg-teal-800 text-teal-100',
-                        tag: 'bg-teal-800 text-teal-100',
-                        text: 'text-white',
-                        textMuted: 'text-white/80',
-                      }
-                    : modulo.id === 'farmacologia'
-                    ? {
-                        bg: 'bg-violet-800',
-                        badge: 'bg-violet-900 text-violet-100',
-                        tag: 'bg-violet-900 text-violet-100',
-                        text: 'text-white',
-                        textMuted: 'text-white/80',
-                      }
-                    : {
-                        bg: 'bg-blue-50 border border-blue-100',
-                        badge: 'bg-blue-200 text-blue-800',
-                        tag: 'bg-blue-200 text-blue-800',
-                        text: 'text-slate-900',
-                        textMuted: 'text-slate-600',
-                      };
+                const scheme = modulo.colorScheme ?? esquemaAzulClaro;
 
                 return (
                   <button
                     key={modulo.id}
-                    onClick={() => setModalModulo(modulo)}
-                    className={`card-hover text-left rounded-2xl p-8 ${scheme.bg}`}
+                    onClick={(e) => {
+                      modalTriggerRef.current = e.currentTarget;
+                      setModalModulo(modulo);
+                    }}
+                    className={`card-hover h-full flex flex-col text-left rounded-2xl p-8 ${scheme.bg}`}
                   >
-                    <span className={`inline-block px-3 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4 ${scheme.badge}`}>
+                    <span className={`inline-block self-start px-3 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4 ${scheme.badge}`}>
                       {modulo.badge}
                     </span>
                     <h3 className={`text-2xl font-bold mb-3 leading-snug ${scheme.text}`}>{modulo.titulo}</h3>
@@ -1126,7 +1384,7 @@ export default function Landing() {
                         </span>
                       ))}
                     </div>
-                    <div className={`flex items-center gap-6 text-sm font-medium ${scheme.textMuted}`}>
+                    <div className={`flex items-center gap-6 text-sm font-medium mt-auto ${scheme.textMuted}`}>
                       <span>{modulo.cursos} cursos</span>
                       <span>{modulo.duracion}</span>
                     </div>
@@ -1138,16 +1396,72 @@ export default function Landing() {
         </section>
       )}
 
+      {/* Overlay de módulo: solo se abre desde la página interna de todas las rutas */}
+      {modalModulo && (
+        <div
+          className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-6"
+          onClick={cerrarModalModulo}
+        >
+          <div
+            className="bg-white rounded-3xl max-w-xl w-full max-h-[85vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={`p-8 relative ${modalScheme.bg}`}>
+              <button
+                onClick={cerrarModalModulo}
+                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition"
+              >
+                <X size={18} className={modalScheme.text === 'text-white' ? 'text-white' : 'text-slate-900'} />
+              </button>
+              <span className={`inline-block px-3 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4 ${modalScheme.badge}`}>
+                {modalModulo.badge}
+              </span>
+              <h3 className={`text-2xl md:text-3xl font-bold leading-snug ${modalScheme.text}`}>{modalModulo.titulo}</h3>
+            </div>
+
+            <div className="p-8">
+              <p className="text-slate-600 leading-relaxed mb-6">{modalModulo.descripcion}</p>
+
+              {!modalModulo.esCatalogo && (
+                <>
+                  <div className="flex gap-8 py-6 border-t border-slate-200 mb-6">
+                    <div>
+                      <p className="text-xs text-slate-500 font-medium mb-1">Cursos</p>
+                      <p className="text-2xl font-bold text-slate-900">{modalModulo.cursos}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-medium mb-1">Duración</p>
+                      <p className="text-2xl font-bold text-slate-900">{modalModulo.duracion}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">Temas</p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {modalModulo.temas.map((tema, i) => (
+                      <span key={i} className="px-3 py-1.5 bg-slate-100 text-slate-700 text-xs rounded-lg font-medium">
+                        {tema}
+                      </span>
+                    ))}
+                  </div>
+                  <button className="w-full py-3.5 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-lg font-semibold">
+                    Consultar ruta completa
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
       <footer className="bg-slate-900 py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-5 gap-8 mb-12">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-10 mb-12">
             {/* Brand */}
-            <div className="md:col-span-1">
+            <div className="max-w-xs">
               <img
                 src={logoRutaEmi}
                 alt="Ruta EMI - Academia Médica"
-                className="h-9 w-auto mb-4"
+                className="h-14 w-auto mb-4"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
               <p className="text-sm text-slate-400 leading-relaxed">
@@ -1155,78 +1469,65 @@ export default function Landing() {
               </p>
             </div>
 
-            {/* Navigation */}
-            <div>
-              <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Navegación</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <button onClick={() => scrollToSection('inicio')} className="text-slate-400 hover:text-white transition">
-                    Inicio
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection('ruta')} className="text-slate-400 hover:text-white transition">
-                    La Ruta
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollToSection('rutas-formativas')}
-                    className="text-slate-400 hover:text-white transition"
-                  >
-                    Cursos
-                  </button>
-                </li>
-              </ul>
-            </div>
+            {/* Textos */}
+            <div className="flex flex-wrap gap-x-16 gap-y-10">
+              {/* Navigation */}
+              <div>
+                <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Navegación</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <button onClick={() => scrollToSection('inicio')} className="text-slate-400 hover:text-white transition">
+                      Inicio
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => scrollToSection('ruta')} className="text-slate-400 hover:text-white transition">
+                      La Ruta
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => scrollToSection('rutas-formativas')}
+                      className="text-slate-400 hover:text-white transition"
+                    >
+                      Cursos
+                    </button>
+                  </li>
+                </ul>
+              </div>
 
-            {/* Contenido */}
-            <div>
-              <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Contenido</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <button onClick={() => scrollToSection('casos')} className="text-slate-400 hover:text-white transition">
-                    Casos Clínicos
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection('recursos')} className="text-slate-400 hover:text-white transition">
-                    Recursos
-                  </button>
-                </li>
-              </ul>
-            </div>
+              {/* Contenido */}
+              <div>
+                <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Contenido</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <button onClick={() => scrollToSection('casos')} className="text-slate-400 hover:text-white transition">
+                      Casos Clínicos
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => scrollToSection('recursos')} className="text-slate-400 hover:text-white transition">
+                      Recursos
+                    </button>
+                  </li>
+                </ul>
+              </div>
 
-            {/* Legal */}
-            <div>
-              <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Legal</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="text-slate-400 hover:text-white transition">
-                    Términos
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-slate-400 hover:text-white transition">
-                    Privacidad
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Social */}
-            <div>
-              <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Conectar</h3>
-              <div className="flex gap-3">
-                <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-[#2BBCEA] text-slate-300 hover:text-white transition flex items-center justify-center text-sm font-bold">
-                  𝕏
-                </button>
-                <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-[#2BBCEA] text-slate-300 hover:text-white transition flex items-center justify-center">
-                  f
-                </button>
-                <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-[#2BBCEA] text-slate-300 hover:text-white transition flex items-center justify-center text-sm font-bold">
-                  in
-                </button>
+              {/* Legal */}
+              <div>
+                <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Legal</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a href="#" className="text-slate-400 hover:text-white transition">
+                      Términos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-slate-400 hover:text-white transition">
+                      Privacidad
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
