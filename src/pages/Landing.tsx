@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronRight, BookOpen } from 'lucide-react';
-import heroPhoto from '../assets/hero-photo.avif';
+import heroPhoto from '../assets/hero-photo-2.avif';
 import logoRutaEmi from '../assets/logo-ruta-emi.svg';
+import casoImg1 from '../assets/casos-clinicos/caso-1.avif';
+import casoImg9 from '../assets/casos-clinicos/caso-9.avif';
+import casoImg13 from '../assets/casos-clinicos/caso-13.avif';
+import casoImg4 from '../assets/casos-clinicos/caso-4.avif';
+import soporteVitalImg from '../assets/soporte-vital.jpg';
 import type { Modulo, ModuloRuta, CasoClinico, CasoListado, Recurso, PasoMetodologia, Vista } from '../types';
 
 const modulos: Modulo[] = [
@@ -58,6 +63,7 @@ const casos: CasoClinico[] = [
     antecedentes:
       'Padres consanguíneos (primos hermanos), desarrollo psicomotor normal hasta los 4 años, parto pretérmino, fractura tibial a los 5 años.',
     url: 'https://scp.com.co/casos-clinicos/caso-1-enfermedad-neurodegenerativa-en-la-infancia/',
+    imagen: casoImg1,
   },
   {
     id: 'caso-9',
@@ -68,6 +74,7 @@ const casos: CasoClinico[] = [
     antecedentes:
       'Recién nacido a término con APGAR normal, hipotonía leve y mancha en vino oporto facial izquierda. Retraso progresivo del desarrollo motor desde el primer año de vida.',
     url: 'https://scp.com.co/casos-clinicos/caso-9-paciente-con-perdida-de-la-marcha/',
+    imagen: casoImg9,
   },
   {
     id: 'caso-13',
@@ -79,6 +86,7 @@ const casos: CasoClinico[] = [
     antecedentes:
       'Hipertensión, edema moderado, eritema malar, inflamación articular y compromiso multiorgánico, orientando hacia lupus eritematoso sistémico.',
     url: 'https://scp.com.co/casos-clinicos/caso-13-presentacion-inusual-de-una-glomerulopatia/',
+    imagen: casoImg13,
   },
   {
     id: 'caso-4',
@@ -90,6 +98,7 @@ const casos: CasoClinico[] = [
     antecedentes:
       'Deformidad progresiva de columna toracolumbar, macrocefalia, hipoplasia mediofacial, soplo cardíaco y hernias, sugiriendo enfermedad de depósito lisosomal.',
     url: 'https://scp.com.co/casos-clinicos/caso-4-la-nina-tiene-una-giba-en-la-espalda/',
+    imagen: casoImg4,
   },
 ];
 
@@ -422,7 +431,11 @@ export default function Landing() {
           {/* Hero Section */}
           <section id="inicio" className="relative overflow-hidden">
             <div className="absolute inset-0">
-              <img src={heroPhoto} alt="Profesional médico trabajando en laptop" className="w-full h-full object-cover" />
+              <img
+                src={heroPhoto}
+                alt="Profesional médico trabajando en laptop"
+                className="w-full h-full object-cover scale-x-[-1]"
+              />
               <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/30" />
             </div>
 
@@ -433,7 +446,11 @@ export default function Landing() {
                     ACADEMIA DE FORMACIÓN MÉDICA
                   </div>
                   <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white mb-6">
-                    Una ruta clara para llevar tu conocimiento a la práctica
+                    Una ruta clara para
+                    <br />
+                    llevar tu conocimiento
+                    <br />
+                    a la práctica
                   </h1>
                   <p className="text-lg text-white/80 leading-relaxed max-w-xl">
                     Cursos, casos clínicos y recursos organizados para ayudarte a avanzar con claridad.
@@ -577,7 +594,12 @@ export default function Landing() {
                     <p className="text-white/85 text-sm leading-relaxed">{destacado.descripcion}</p>
                   </div>
                   <div className="relative flex-1 min-h-[220px] bg-teal-800 overflow-hidden">
-                    <div className="absolute inset-0 opacity-25" style={patronDiagonal} />
+                    <img
+                      src={soporteVitalImg}
+                      alt="Soporte vital avanzado"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-teal-800/30" />
                   </div>
                 </button>
 
@@ -746,8 +768,14 @@ export default function Landing() {
                       onClick={() => setModalCaso(caso)}
                       className="card-hover text-left group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300"
                     >
-                      <div className={`relative h-40 bg-gradient-to-br ${scheme.overlay}`}>
-                        <div className="absolute inset-0 opacity-20" style={patronDiagonal} />
+                      <div className="relative h-40 overflow-hidden">
+                        <img
+                          src={caso.imagen}
+                          alt={caso.titulo}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${scheme.overlay} opacity-40`} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent" />
                         <span
                           className={`absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${scheme.badge}`}
                         >
@@ -803,20 +831,28 @@ export default function Landing() {
                 className="bg-white rounded-3xl max-w-xl w-full max-h-[85vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="p-8 relative bg-slate-950">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={modalCaso.imagen}
+                    alt={modalCaso.titulo}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/10" />
                   <button
                     onClick={() => setModalCaso(null)}
                     className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
                   >
                     <X size={18} className="text-white" />
                   </button>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="inline-block px-3 py-1.5 rounded-full text-xs font-bold tracking-wide bg-white/15 text-white">
-                      {modalCaso.especialidad}
-                    </span>
-                    <span className="text-xs text-white/60">{modalCaso.paciente}</span>
+                  <div className="absolute bottom-6 left-8 right-8">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="inline-block px-3 py-1.5 rounded-full text-xs font-bold tracking-wide bg-white/15 text-white">
+                        {modalCaso.especialidad}
+                      </span>
+                      <span className="text-xs text-white/60">{modalCaso.paciente}</span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white leading-snug">{modalCaso.titulo}</h3>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white leading-snug">{modalCaso.titulo}</h3>
                 </div>
 
                 <div className="p-8">
@@ -965,8 +1001,23 @@ export default function Landing() {
 
                 const contenido = (
                   <>
-                    <div className={`relative h-32 bg-gradient-to-br ${scheme.overlay}`}>
-                      <div className="absolute inset-0 opacity-20" style={patronDiagonal} />
+                    <div className="relative h-32 overflow-hidden">
+                      {casoDetalle ? (
+                        <>
+                          <img
+                            src={casoDetalle.imagen}
+                            alt={item.titulo}
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                          <div className={`absolute inset-0 bg-gradient-to-br ${scheme.overlay} opacity-40`} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent" />
+                        </>
+                      ) : (
+                        <>
+                          <div className={`absolute inset-0 bg-gradient-to-br ${scheme.overlay}`} />
+                          <div className="absolute inset-0 opacity-20" style={patronDiagonal} />
+                        </>
+                      )}
                       <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-white/90 text-slate-900">
                         Caso #{item.numero}
                       </span>

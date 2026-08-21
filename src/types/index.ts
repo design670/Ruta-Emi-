@@ -31,6 +31,7 @@ export interface CasoClinico {
   motivoConsulta: string;
   antecedentes: string;
   url: string;
+  imagen: string;
 }
 
 export interface CasoListado {
