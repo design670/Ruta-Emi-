@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 848.38 216.4">
+  <defs>
+    <style>
+      .cls-2 {
+        letter-spacing: -.09em;
+      }
+
+      .cls-3 {
+        font-family: Inter-Bold, Inter;
+        font-size: 103.82px;
+        font-variation-settings: 'opsz' 14, 'wght' 700;
+        font-weight: 700;
+        fill: #0f172b;
+      }
+
+      .cls-5 {
+        fill: #0d2967;
+      }
+
+      .cls-6 {
+        fill: #2bbcea;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <path class="cls-5" d="M144.23,27.28c-28.6,1.84-53.71,16.72-68.51,40.87-12.68,20.69-15.34,44.69-9.43,68.84l-24.34,10.24C22.11,82.57,60.52,16.87,123.82,2.87c35.86-7.93,72.94.54,100.63,25.94,32.27,29.61,43.86,75.75,30.86,118.72l-24.54-10.28c7.51-27.49,2.09-56-15.49-78.47-16.4-20.95-42.37-33.34-71.04-31.5Z"/>
+      <polygon class="cls-6" points="152.15 158.96 84.15 184.68 .32 216.38 0 189.73 151.55 129.39 302.85 189.48 302.88 216.4 152.15 158.96"/>
+    </g>
+    <text class="cls-3" transform="translate(353.12 148)"><tspan x="0" y="0">RU</tspan><tspan class="cls-2" x="144.17" y="0">T</tspan><tspan x="204.24" y="0">A EMI</tspan></text>
+  </g>
+</svg>

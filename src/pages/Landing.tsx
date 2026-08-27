@@ -14,13 +14,13 @@ import {
 } from 'lucide-react';
 import heroPhoto from '../assets/hero-photo-2.avif';
 import logoRutaEmi from '../assets/logo-ruta-emi.svg';
+import logoRutaEmiMark from '../assets/logo-ruta-emi-mark.svg';
 import casoImg1 from '../assets/casos-clinicos/caso-1.avif';
 import casoImg9 from '../assets/casos-clinicos/caso-9.avif';
 import casoImg13 from '../assets/casos-clinicos/caso-13.avif';
 import casoImg4 from '../assets/casos-clinicos/caso-4.avif';
 import soporteVitalImg from '../assets/soporte-vital.jpg';
 import valoracionClinicaImg from '../assets/valoracion-clinica.jpg';
-import llamadoAccionImg from '../assets/llamado-accion.jpg';
 import type { Modulo, ModuloRuta, CasoClinico, CasoListado, Recurso, PasoMetodologia, Vista } from '../types';
 
 const esquemaTealIntenso = { bg: 'bg-teal-600', badge: 'bg-teal-800 text-teal-100', tag: 'bg-teal-800 text-teal-100', text: 'text-white', textMuted: 'text-white/80' };
@@ -420,190 +420,6 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 font-sans">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap');
-
-        * {
-          font-family: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        h1, h2, h3 {
-          font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          font-weight: 700;
-        }
-
-        .text-gradient {
-          background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .no-scrollbar {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-
-        .route-line {
-          position: relative;
-          overflow: hidden;
-        }
-
-        .route-line::after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #0f172a, #0d9488, transparent);
-          animation: flowLine 3s ease-in-out infinite;
-        }
-
-        @keyframes flowLine {
-          0%, 100% { transform: scaleX(0); transform-origin: left; opacity: 0; }
-          50% { opacity: 1; }
-          100% { transform: scaleX(1); transform-origin: left; }
-        }
-
-        .card-hover {
-          transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .card-hover:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
-        }
-
-        .ruta-preview-card {
-          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1), box-shadow 0.35s cubic-bezier(0.23, 1, 0.320, 1),
-            filter 0.35s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-preview-card:hover {
-          transform: translateY(-8px) scale(1.015);
-          box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
-          filter: brightness(1.06);
-        }
-
-        .ruta-preview-content {
-          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-preview-card:hover .ruta-preview-content {
-          transform: translateY(-4px);
-        }
-
-        .ruta-preview-img {
-          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-preview-card:hover .ruta-preview-img {
-          transform: scale(1.04);
-        }
-
-        .ruta-preview-arrow {
-          transition: transform 0.35s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-preview-card:hover .ruta-preview-arrow {
-          transform: translateX(4px);
-        }
-
-        .ruta-card {
-          transition: transform 0.45s cubic-bezier(0.23, 1, 0.320, 1), box-shadow 0.45s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
-        }
-
-        .ruta-card-img {
-          transition: transform 0.45s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-card:hover .ruta-card-img {
-          transform: scale(1.04);
-        }
-
-        .ruta-card-fill {
-          transform: scaleY(0);
-          transform-origin: bottom;
-          transition: transform 0.45s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .ruta-card:hover .ruta-card-fill {
-          transform: scaleY(1);
-        }
-
-        .btn-primary {
-          transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 24px rgba(43, 188, 234, 0.35);
-        }
-
-        .btn-primary:active {
-          transform: translateY(0);
-        }
-
-        .nav-link {
-          position: relative;
-          transition: color 0.3s ease;
-        }
-
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: #2BBCEA;
-          transform: scaleX(0);
-          transform-origin: right;
-          transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-          transform: scaleX(1);
-          transform-origin: left;
-        }
-
-        .fade-in {
-          animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
-        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
-        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
-
-        @media (prefers-reduced-motion: reduce) {
-          * {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-          }
-        }
-      `}</style>
 
       {/* Header */}
       <header
@@ -1095,42 +911,6 @@ export default function Landing() {
             </div>
           )}
 
-          {/* Da el siguiente paso */}
-          <section className="pt-16 md:pt-20 pb-24 md:pb-32 px-6 bg-white">
-            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-              {/* Composición visual: fotografía */}
-              <div className="order-2 md:order-1 relative rounded-3xl overflow-hidden h-[560px] md:h-[640px]">
-                <img
-                  src={llamadoAccionImg}
-                  alt="Profesional de la salud de Ruta EMI"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Texto */}
-              <div className="order-1 md:order-2">
-                <div className="inline-block mb-4 px-4 py-2 bg-[#C2F2FF] text-[#0D2967] rounded-full text-xs font-bold tracking-wide">
-                  DA EL SIGUIENTE PASO
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                  Tu próxima ruta comienza aquí
-                </h2>
-                <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                  Elige el curso que necesitas y continúa avanzando en tu formación médica.
-                </p>
-                <button
-                  onClick={() => scrollToSection('rutas-formativas')}
-                  className="btn-primary px-6 py-3.5 bg-violet-800 text-white rounded-full font-semibold inline-flex items-center gap-3"
-                >
-                  Explorar cursos
-                  <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center">
-                    <ChevronRight size={16} />
-                  </span>
-                </button>
-              </div>
-            </div>
-          </section>
-
           {/* Recursos */}
           <section id="recursos" className="py-24 md:py-32 px-6 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
             <div className="max-w-7xl mx-auto">
@@ -1205,41 +985,6 @@ export default function Landing() {
             </div>
           </section>
 
-          {/* CTA Final */}
-          <section className="py-24 md:py-32 px-6 bg-gradient-to-r from-sky-100 via-cyan-50 to-sky-100">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                Comienza a construir tu
-                <span className="text-gradient"> ruta de aprendizaje</span>
-              </h2>
-              <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">
-                Crea tu cuenta para acceder a cursos, casos clínicos y recursos especializados. Guarda tu progreso y
-                avanza a tu ritmo.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/registro"
-                  className="btn-primary px-8 py-4 bg-gradient-to-r from-[#1CA7D0] to-[#2BBCEA] text-white rounded-full font-semibold text-lg inline-flex items-center justify-center gap-3"
-                >
-                  Crear mi cuenta
-                  <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <ChevronRight size={16} />
-                  </span>
-                </Link>
-                <Link
-                  to="/iniciar-sesion"
-                  className="px-8 py-4 border-2 border-slate-300 text-slate-700 rounded-full font-semibold hover:bg-slate-50 transition text-lg text-center"
-                >
-                  Ya tengo una cuenta
-                </Link>
-              </div>
-
-              <p className="text-sm text-slate-500 mt-8">
-                Al registrarte, aceptas nuestros términos de servicio y política de privacidad.
-              </p>
-            </div>
-          </section>
         </>
       )}
 
@@ -1459,13 +1204,13 @@ export default function Landing() {
             {/* Brand */}
             <div className="max-w-xs">
               <img
-                src={logoRutaEmi}
-                alt="Ruta EMI - Academia Médica"
-                className="h-14 w-auto mb-4"
+                src={logoRutaEmiMark}
+                alt="Ruta EMI"
+                className="h-12 w-auto mb-4"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
               <p className="text-sm text-slate-400 leading-relaxed">
-                Formación médica basada en rutas de aprendizaje progresivo.
+                Micrositio de apoyo para conocer, consultar y aplicar la Ruta EMI.
               </p>
             </div>
 
