@@ -17,6 +17,7 @@ export const modulosCurso = [
     numero: '1',
     titulo: 'La verdadera cara de la EMI',
     descripcion: 'Describir la carga de enfermedad aguda y secuelas.',
+    docente: 'Dra. Alexandra Sierra',
     llamado:
       'Reconocer y priorizar la EMI en Colombia, notificar al sistema de vigilancia epidemiológica y ser garantes de esta información.',
   },
@@ -25,18 +26,21 @@ export const modulosCurso = [
     titulo: 'Código EMI: Sistema de alertas para la atención del paciente con EMI',
     descripcion:
       'Foco en los puntos de dolor en la atención inicial del paciente, reconocimiento temprano, sospecha diagnóstica, acciones clave en la primera hora.',
+    docente: 'Dra. Claudia Beltrán',
     llamado: 'Actuar a tiempo cambia el pronóstico y los desenlaces del paciente.',
   },
   {
     numero: '3',
     titulo: 'Manejo inicial, diagnóstico y notificación',
     descripcion: 'Reconocimiento de secuelas y orientación sobre la ruta de seguimiento.',
+    docente: 'Dr. Wilfrido Coronell',
     llamado: 'Nuestro compromiso va más allá de la enfermedad aguda.',
   },
   {
     numero: '4',
     titulo: 'La EMI no espera, un llamado a las estrategias de prevención',
     descripcion: 'Enfoque sobre vacunación y quimioprofilaxis.',
+    docente: 'Dr. Andrés Arias',
     llamado: 'Prevenir siempre será nuestra mejor intervención.',
   },
 ];

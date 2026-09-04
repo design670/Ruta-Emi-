@@ -45,11 +45,10 @@ export default function RutaEmiV2Landing() {
 
               <div id="ruta-emi" className="max-w-3xl mx-auto text-center pt-3 md:pt-5 pb-2">
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-[1.15] mb-3 text-white">
-                  Guía para reconocer, actuar y consultar ante la Enfermedad Meningocócica Invasiva.
+                  Ruta EMI: de la sospecha a la supervivencia
                 </h1>
                 <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mx-auto mb-5">
-                  Un micrositio para conocer la ruta, reforzar decisiones clínicas, revisar casos aplicados y acceder
-                  a recursos recomendados sobre EMI.
+                  Reconocimiento, respuesta y prevención de la enfermedad meningocócica invasora
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                   <Link

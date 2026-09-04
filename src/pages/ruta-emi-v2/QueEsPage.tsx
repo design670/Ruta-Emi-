@@ -27,15 +27,50 @@ export default function QueEsPage() {
       </div>
 
       <main className="flex-1 px-6 py-14 md:py-20">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <p className="text-slate-700 leading-relaxed mb-6">
-            La Ruta EMI es una herramienta de orientación para el abordaje de la Enfermedad Meningocócica Invasiva.
-            Reúne pasos clave para apoyar la sospecha clínica, la toma de decisiones iniciales, la atención oportuna,
-            la articulación con el sistema de salud y la consulta de recursos relacionados.
+            La enfermedad meningocócica invasiva (EMI) representa una de las emergencias infecciosas más desafiantes
+            en pediatría por su rápida progresión, su potencial para generar desenlaces graves y la posibilidad de
+            dejar secuelas que pueden acompañar al niño o adolescente durante toda su vida. En este escenario, cada
+            minuto cuenta: reconocer tempranamente los signos de alarma, sospechar la enfermedad y actuar de manera
+            oportuna, puede marcar una diferencia significativa en el pronóstico.
           </p>
-          <p className="text-slate-600 leading-relaxed mb-8">
-            Pensada para facilitar la consulta rápida y la aplicación práctica en escenarios de atención.
+          <p className="text-slate-700 leading-relaxed mb-6">
+            Este curso virtual ofrece una mirada integral y práctica de la EMI en la población pediátrica, abordando
+            el reto desde cuatro momentos fundamentales: reconocer la enfermedad, actuar a tiempo, acompañar más allá
+            de la fase aguda y prevenir.
           </p>
+          <p className="text-slate-700 leading-relaxed mb-8">
+            A lo largo de los módulos, los participantes fortalecerán sus herramientas para identificar oportunamente
+            al paciente pediátrico con sospecha de EMI, tomar decisiones claves durante la primera hora de atención,
+            reconocer y orientar el manejo de sus posibles secuelas, y aplicar estrategias de prevención como la
+            vacunación y la quimioprofilaxis. Porque frente a la EMI, la oportunidad de actuar puede cambiar una
+            historia y la prevención puede evitarla.
+          </p>
+
+          <h2 className="text-xl font-bold text-[#0D2967] mb-4">Objetivos</h2>
+          <ul className="space-y-3 mb-10">
+            <li className="flex gap-3 text-slate-600 leading-relaxed">
+              <span className="text-[#0D2967] font-bold flex-shrink-0">•</span>
+              Reconocer el impacto de la EMI en niños y adolescentes, identificando su carga, manifestaciones,
+              complicaciones, secuelas y vigilancia epidemiológica.
+            </li>
+            <li className="flex gap-3 text-slate-600 leading-relaxed">
+              <span className="text-[#0D2967] font-bold flex-shrink-0">•</span>
+              Fortalecer la sospecha y el reconocimiento temprano de la EMI, estableciendo signos de alarma y
+              aplicando acciones durante la primera hora de atención.
+            </li>
+            <li className="flex gap-3 text-slate-600 leading-relaxed">
+              <span className="text-[#0D2967] font-bold flex-shrink-0">•</span>
+              Identificar las principales secuelas de la EMI en la población pediátrica y orientar al niño, al
+              adolescente y a su familia hacia un seguimiento integral.
+            </li>
+            <li className="flex gap-3 text-slate-600 leading-relaxed">
+              <span className="text-[#0D2967] font-bold flex-shrink-0">•</span>
+              Determinar y promover las estrategias de prevención de la EMI, con énfasis en vacunación y
+              quimioprofilaxis, como herramientas para reducir el riesgo de la enfermedad y sus desenlaces.
+            </li>
+          </ul>
           <a
             href={RUTA_EMI_URL}
             target="_blank"
