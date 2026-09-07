@@ -28,7 +28,7 @@ export default function CursoPage() {
   return (
     <V2PageShell>
       <div className="px-4 md:px-6 pt-4 md:pt-6">
-        <div className="relative max-w-[1600px] mx-auto rounded-[2rem] md:rounded-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-10 md:pb-14">
+        <div className="relative max-w-[1600px] mx-auto rounded-t-[2rem] md:rounded-t-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-10 md:pb-14">
           <img src={heroCertifiquese} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0D2967] via-[#0D2967]/80 to-[#0D2967]/10" />
 
@@ -48,26 +48,30 @@ export default function CursoPage() {
                 Meningocócica Invasiva.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div className="w-full max-w-4xl mx-auto md:mx-0 mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-              {infoCards.map((card) => {
-                const Icono = card.icono;
-                return (
-                  <div
-                    key={card.etiqueta}
-                    className={`rounded-[18px] border border-slate-200 bg-white shadow-sm p-4 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
-                      card.span ? 'sm:col-span-2 lg:col-span-2' : ''
-                    }`}
-                  >
-                    <Icono className="text-[#0D2967] mb-2" size={20} strokeWidth={1.75} />
-                    <span className="text-[10px] font-bold uppercase tracking-wide text-slate-400 mb-1">
-                      {card.etiqueta}
-                    </span>
-                    <span className="text-slate-900 font-bold text-sm leading-snug">{card.valor}</span>
+      <div className="px-4 md:px-6">
+        <div className="max-w-[1600px] mx-auto bg-[#0D2967] rounded-b-[2rem] md:rounded-b-[2.5rem] px-6 md:px-12 lg:px-16 py-8 md:py-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-6">
+            {infoCards.map((card) => {
+              const Icono = card.icono;
+              return (
+                <div
+                  key={card.etiqueta}
+                  className="flex items-start gap-3 lg:pr-6 lg:border-r lg:border-white lg:last:border-r-0 lg:last:pr-0"
+                >
+                  <span className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                    <Icono className="text-[#37D6C4]" size={18} strokeWidth={1.75} />
+                  </span>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-white/50 text-[11px] mb-0.5">{card.etiqueta}</span>
+                    <span className="text-white font-bold text-sm leading-snug">{card.valor}</span>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

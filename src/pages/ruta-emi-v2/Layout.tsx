@@ -58,9 +58,8 @@ export function V2Footer() {
 
         <div className="flex flex-wrap gap-x-16 gap-y-8">
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Navegación</h4>
             <ul className="space-y-2 text-sm">
-              {navItems.map((item) => (
+              {navItems.slice(0, 2).map((item) => (
                 <li key={item.href}>
                   <Link to={item.href} className="text-slate-600 hover:text-[#0D2967] transition">
                     {item.label}
@@ -71,7 +70,18 @@ export function V2Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Legal</h4>
+            <ul className="space-y-2 text-sm">
+              {navItems.slice(2, 4).map((item) => (
+                <li key={item.href}>
+                  <Link to={item.href} className="text-slate-600 hover:text-[#0D2967] transition">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="text-slate-600 hover:text-[#0D2967] transition">
