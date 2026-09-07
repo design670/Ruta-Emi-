@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { ChevronLeft, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ExternalLink, Download } from 'lucide-react';
 import { V2Header, V2Footer, V2PageShell } from './Layout';
 import { RUTA_EMI_URL, casosClinicos } from './content';
 import cardCasos from '../../assets/card-casos.jpg';
@@ -42,17 +42,31 @@ export default function CasoDetallePage() {
             toma de decisiones iniciales y la articulación oportuna con el sistema de salud. El desarrollo completo
             del caso, con sus puntos de decisión, se encuentra disponible en la Ruta EMI interactiva.
           </p>
-          <a
-            href={RUTA_EMI_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-3 px-7 py-3.5 bg-emerald-600 text-white rounded-full font-bold"
-          >
-            Resolver caso en la Ruta EMI
-            <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-              <ExternalLink size={15} />
-            </span>
-          </a>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href={RUTA_EMI_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center gap-3 px-7 py-3.5 bg-emerald-600 text-white rounded-full font-bold"
+            >
+              Resolver caso en la Ruta EMI
+              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                <ExternalLink size={15} />
+              </span>
+            </a>
+            {/* Placeholder: enlazar al PDF real del caso cuando esté disponible. */}
+            <a
+              href={RUTA_EMI_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center gap-3 px-7 py-3.5 border-2 border-emerald-600 text-emerald-700 rounded-full font-bold"
+            >
+              Descargar PDF
+              <span className="w-8 h-8 rounded-full bg-emerald-600/10 flex items-center justify-center">
+                <Download size={15} />
+              </span>
+            </a>
+          </div>
         </div>
       </main>
 
