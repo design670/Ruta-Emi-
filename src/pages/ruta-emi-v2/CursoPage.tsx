@@ -18,7 +18,7 @@ const infoCards = [
 ];
 
 const esquemasModulo = [
-  { imagen: imgModulo1, acento: 'bg-teal-600', hover: 'hover:bg-teal-600' },
+  { imagen: imgModulo1, acento: 'bg-orange-500', hover: 'hover:bg-orange-500' },
   { imagen: imgModulo2, acento: 'bg-emerald-600', hover: 'hover:bg-emerald-600' },
   { imagen: imgModulo3, acento: 'bg-violet-700', hover: 'hover:bg-violet-700' },
   { imagen: imgModulo4, acento: 'bg-sky-600', hover: 'hover:bg-sky-600' },
