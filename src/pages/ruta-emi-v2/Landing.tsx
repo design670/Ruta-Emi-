@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, X } from 'lucide-react';
 import { V2Header, V2Footer, V2PageShell } from './Layout';
 import { RUTA_EMI_URL } from './content';
-import cardCurso from '../../assets/card-curso.jpg';
+import heroDoctora from '../../assets/hero-doctora-landing.png';
+import cardCurso from '../../assets/card-certifiquese-landing.png';
 import cardCasos from '../../assets/card-casos.jpg';
-import cardRecursos from '../../assets/card-recursos.jpg';
+import cardRecursos from '../../assets/card-recursos-landing.png';
 
 const cards = [
   {
@@ -13,7 +15,8 @@ const cards = [
     cta: 'Ver curso',
     href: '/ruta-emi-v2/curso',
     imagen: cardCurso,
-    bg: 'bg-teal-600',
+    bg: 'bg-[#4B2162]',
+    fit: 'object-contain' as const,
   },
   {
     id: 'casos',
@@ -22,6 +25,7 @@ const cards = [
     href: '/ruta-emi-v2/casos-clinicos',
     imagen: cardCasos,
     bg: 'bg-emerald-600',
+    fit: 'object-cover' as const,
   },
   {
     id: 'recursos',
@@ -29,91 +33,143 @@ const cards = [
     cta: 'Ver recursos',
     href: '/ruta-emi-v2/recursos',
     imagen: cardRecursos,
-    bg: 'bg-violet-800',
+    bg: 'bg-[#009DDC]',
+    fit: 'object-contain' as const,
   },
 ];
 
 export default function RutaEmiV2Landing() {
+  const [consultaAbierta, setConsultaAbierta] = useState(false);
+
   return (
     <V2PageShell>
       <main className="flex-1">
-        {/* Bloque azul marino: header, presentación y cards en flujo normal (sin superposición) */}
-        <section className="px-4 md:px-6 pt-3 md:pt-4">
-          <div className="max-w-[1600px] mx-auto">
-            <div className="relative flow-root bg-[#0D2967] rounded-[2rem] md:rounded-[2.5rem] px-6 md:px-10 lg:px-14 pt-3 md:pt-4 pb-6 sm:pb-0">
-              <V2Header />
+        {/* Hero: degradado navy → blanco, foto de fondo centrada/derecha a toda altura */}
+        <section id="ruta-emi" className="relative overflow-hidden min-h-[420px] md:min-h-[720px]">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1428] via-[#0D2967] to-[#EFF1F5]" />
 
-              <div id="ruta-emi" className="max-w-3xl mx-auto text-center pt-3 md:pt-5 pb-2">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-[1.15] mb-3 text-white">
-                  Ruta EMI: de la sospecha a la supervivencia
+          <img
+            src={heroDoctora}
+            alt=""
+            aria-hidden="true"
+            className="hidden md:block absolute inset-y-0 right-0 md:right-[22%] h-full w-auto max-w-none object-contain object-bottom pointer-events-none select-none"
+          />
+
+          <div className="absolute inset-0 z-10 flex flex-col px-4 md:px-6 pt-3 md:pt-4">
+            <V2Header />
+
+            <div className="max-w-[1400px] w-full mx-auto flex-1 flex items-center">
+              <div className="max-w-md text-center md:text-left mx-auto md:mx-0">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] mb-6">
+                  <span className="text-[#37D6C4] block">Ruta EMI</span>
+                  <span className="text-white">De la sospecha a la supervivencia.</span>
                 </h1>
-                <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mx-auto mb-5">
-                  Reconocimiento, respuesta y prevención de la enfermedad meningocócica invasora
-                </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <Link
-                    to="/ruta-emi-v2/que-es-la-ruta-emi"
-                    className="btn-primary btn-hero-cta inline-flex items-center gap-3 bg-white/10 border border-white/20 hover:bg-white/15 text-white pl-6 pr-2 py-2 rounded-full font-semibold text-sm md:text-base"
-                  >
-                    ¿Qué es la Ruta EMI?
-                    <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
-                      <ChevronRight size={16} />
-                    </span>
-                  </Link>
-                  <a
-                    href={RUTA_EMI_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary btn-hero-cta inline-flex items-center gap-3 bg-slate-800/80 hover:bg-slate-800 text-white pl-6 pr-2 py-2 rounded-full font-semibold text-sm md:text-base"
-                  >
-                    Consultar la Ruta EMI
-                    <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
-                      <ChevronRight size={16} />
-                    </span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Cards: pieza gráfica única (color + persona integrada), 330×360px exactas desde 1200px */}
-              {/* Superpuestas sobre el borde azul desde el breakpoint sm (640px); en móvil se apilan sin superposición */}
-              <div className="relative z-10 pt-6 md:pt-7 mb-0 sm:-mb-[180px] flex justify-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 min-[1200px]:grid-cols-[330px_330px_330px] gap-5 min-[1200px]:gap-6 w-full max-w-[1038px] justify-center">
-                  {cards.map((card) => (
-                    <Link
-                      key={card.id}
-                      to={card.href}
-                      aria-label={`${card.titulo.replace('\n', ' ')} — ${card.cta}`}
-                      className={`emi2-banner-card group relative block rounded-[28px] overflow-hidden w-full min-[1200px]:w-[330px] h-[360px] focus:outline-none focus-visible:ring-2 focus-visible:ring-white mx-auto min-[1200px]:mx-0 ${card.bg}`}
-                    >
-                      <img
-                        src={card.imagen}
-                        alt=""
-                        aria-hidden="true"
-                        className="emi2-banner-card-img absolute inset-0 w-full h-full object-cover"
-                      />
-                      <div className="relative z-[3] flex flex-col items-start h-full px-6 py-6">
-                        <h3 className="text-white font-bold text-2xl leading-tight whitespace-pre-line max-w-[210px] drop-shadow-sm">
-                          {card.titulo}
-                        </h3>
-                        <div className="mt-auto w-full relative h-11">
-                          <span className="absolute top-1/2 left-0 -translate-y-1/2 transition-[left,transform] duration-300 ease-out group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 inline-flex items-center gap-2.5 bg-white px-4 py-2.5 rounded-full text-[#0D2967] font-semibold text-sm whitespace-nowrap">
-                            {card.cta}
-                            <span className="emi2-banner-card-arrow w-7 h-7 rounded-full bg-[#0D2967] flex items-center justify-center flex-shrink-0">
-                              <ChevronRight size={14} className="text-white" />
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+                <Link
+                  to="/ruta-emi-v2/que-es-la-ruta-emi"
+                  className="btn-primary btn-hero-cta inline-flex items-center gap-3 bg-white/10 border border-white/20 hover:bg-white/15 text-white pl-6 pr-2 py-2 rounded-full font-semibold text-sm md:text-base"
+                >
+                  ¿Qué es la Ruta EMI?
+                  <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                    <ChevronRight size={16} />
+                  </span>
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Espacio reservado para la mitad inferior de las cards superpuestas + respiro antes del footer */}
-        <div className="h-10 sm:h-[300px]" />
+        {/* Bloque blanco: subtítulo + CTA */}
+        <section className="bg-[#EFF1F5] px-6">
+          <div className="h-[284px] flex flex-col items-center justify-center text-center">
+            <p className="max-w-2xl mx-auto text-xl md:text-2xl font-bold text-[#0D2967] leading-snug mb-6">
+              Reconocimiento, respuesta y prevención de la enfermedad meningocócica invasora
+            </p>
+            <button
+              type="button"
+              onClick={() => setConsultaAbierta((abierta) => !abierta)}
+              aria-expanded={consultaAbierta}
+              className="btn-primary inline-flex items-center gap-3 bg-[#0D2967] text-white pl-6 pr-2 py-2 rounded-full font-semibold text-sm"
+            >
+              Consultar la Ruta EMI
+              <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center">
+                <ChevronRight size={15} />
+              </span>
+            </button>
+          </div>
+
+          <div
+            className={`grid ${
+              consultaAbierta ? 'grid-rows-[1fr] pb-10' : 'grid-rows-[0fr]'
+            }`}
+            style={{ transition: 'grid-template-rows 700ms cubic-bezier(0.23, 1, 0.32, 1)' }}
+          >
+            <div className="overflow-hidden">
+              <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-[#0D2967]/10 shadow-xl bg-white">
+                <div className="flex items-center justify-end bg-[#0D2967] px-4 py-3">
+                  <button
+                    type="button"
+                    onClick={() => setConsultaAbierta(false)}
+                    className="inline-flex items-center gap-2 bg-white pl-5 pr-1.5 py-1.5 rounded-full text-[#0D2967] font-semibold text-sm shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    Cerrar
+                    <span className="w-7 h-7 rounded-full bg-[#0D2967] text-white flex items-center justify-center">
+                      <X size={14} />
+                    </span>
+                  </button>
+                </div>
+                {consultaAbierta && (
+                  <iframe
+                    src={RUTA_EMI_URL}
+                    title="Ruta EMI"
+                    className="w-full h-[640px] block"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Encabezado de sección + cards */}
+        <section className="px-6 pt-[123px] pb-16 md:pb-24">
+          <h2 className="max-w-2xl mx-auto text-center text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D2967] leading-[1.1] mb-10 md:mb-12">
+            <span className="text-[#2BBCEA]">Reconoce, actúa y previene:</span> empieza aquí tu recorrido por la EMI.
+          </h2>
+
+          <div className="max-w-[1100px] mx-auto grid sm:grid-cols-3 gap-5 md:gap-6">
+            {cards.map((card) => (
+              <Link
+                key={card.id}
+                to={card.href}
+                aria-label={`${card.titulo.replace('\n', ' ')} — ${card.cta}`}
+                className={`emi2-banner-card group relative block rounded-[28px] overflow-hidden aspect-[4/5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D2967] ${card.bg}`}
+              >
+                <img
+                  src={card.imagen}
+                  alt=""
+                  aria-hidden="true"
+                  className={`emi2-banner-card-img absolute bottom-0 ${card.fit} object-bottom ${
+                    card.fit === 'object-contain'
+                      ? 'left-[-17.5%] w-[135%] max-w-none h-[135%]'
+                      : 'inset-x-0 w-full h-full'
+                  }`}
+                />
+                <div className="relative z-[3] flex flex-col items-start h-full px-6 pt-10 pb-6">
+                  <h3 className="text-white font-bold text-2xl leading-tight whitespace-pre-line max-w-[240px] drop-shadow-sm">
+                    {card.titulo}
+                  </h3>
+                  <div className="mt-auto w-full relative h-11">
+                    <span className="absolute top-1/2 left-0 -translate-y-1/2 transition-[left,transform] duration-300 ease-out group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 inline-flex items-center gap-2.5 bg-white px-4 py-2.5 rounded-full text-[#0D2967] font-semibold text-sm whitespace-nowrap">
+                      {card.cta}
+                      <span className="emi2-banner-card-arrow w-7 h-7 rounded-full bg-[#0D2967] flex items-center justify-center flex-shrink-0">
+                        <ChevronRight size={14} className="text-white" />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
       </main>
 
       <V2Footer />

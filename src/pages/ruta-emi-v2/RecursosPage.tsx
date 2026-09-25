@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BookOpen, BarChart3, Link2, Video } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { V2Header, V2Footer, V2PageShell } from './Layout';
 import { recursos, RUTA_EMI_URL } from './content';
 import heroRecursos from '../../assets/recursos/hero-recursos.jpg';
+import cardPdfGuias from '../../assets/recursos/card-pdf-guias.jpg';
+import cardInfografias from '../../assets/recursos/card-infografias.jpg';
+import cardEnlaces from '../../assets/recursos/card-enlaces.jpg';
+import cardVideos from '../../assets/recursos/card-videos.jpg';
 
-const iconos = [BookOpen, BarChart3, Link2, Video];
-const esquemas = [
-  'bg-gradient-to-br from-emerald-600 to-emerald-700',
-  'bg-gradient-to-br from-teal-600 to-teal-700',
-  'bg-gradient-to-br from-violet-700 to-violet-800',
-  'bg-gradient-to-br from-orange-500 to-orange-600',
-];
+const imagenes = [cardPdfGuias, cardInfografias, cardEnlaces, cardVideos];
+const acentos = ['bg-emerald-600', 'bg-[#2BBCEA]', 'bg-violet-700', 'bg-orange-500'];
+const acentosHover = ['hover:bg-emerald-600', 'hover:bg-[#2BBCEA]', 'hover:bg-violet-700', 'hover:bg-orange-500'];
 
 export default function RecursosPage() {
   return (
@@ -43,26 +43,39 @@ export default function RecursosPage() {
       <main className="flex-1 px-6 py-14 md:py-20">
         <div className="max-w-[1240px] mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {recursos.map((recurso, idx) => {
-            const Icono = iconos[idx % iconos.length];
             return (
               <a
                 key={recurso.tipo}
                 href={RUTA_EMI_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`card-hover rounded-2xl p-7 text-white h-full flex flex-col ${esquemas[idx % esquemas.length]}`}
+                className={`group flex flex-col h-full bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${acentosHover[idx % acentosHover.length]}`}
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/15 border-2 border-white/30 mb-5">
-                  <Icono className="text-white" size={26} />
+                <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
+                  <img
+                    src={imagenes[idx % imagenes.length]}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{recurso.tipo}</h3>
-                <p className="text-white/80 text-sm leading-relaxed mb-5">{recurso.descripcion}</p>
-                <span className="mt-auto inline-flex items-center gap-2.5 w-fit bg-white/20 px-4 py-2.5 rounded-full text-white font-semibold text-sm">
-                  Ver Recursos
-                  <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-                    <ChevronRight size={14} className="text-slate-900" />
+
+                <div className="pt-4 px-1.5 pb-1 flex flex-col flex-1">
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 mb-1.5">
+                    {recurso.tipo}
+                  </h3>
+                  <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed mb-4">
+                    {recurso.descripcion}
+                  </p>
+                  <span
+                    className={`mt-auto inline-flex items-center gap-2 w-fit pl-4 pr-1.5 py-1.5 rounded-full text-white font-semibold text-sm transition-colors duration-300 group-hover:bg-white/20 group-hover:backdrop-blur-sm ${acentos[idx % acentos.length]}`}
+                  >
+                    Ver recursos
+                    <span className="w-6 h-6 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
+                      <ChevronRight size={12} />
+                    </span>
                   </span>
-                </span>
+                </div>
               </a>
             );
           })}

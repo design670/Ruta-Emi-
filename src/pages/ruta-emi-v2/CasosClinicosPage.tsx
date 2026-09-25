@@ -5,8 +5,11 @@ import { casosClinicos } from './content';
 import cardCasos from '../../assets/card-casos.jpg';
 import heroCasoClinico from '../../assets/casos-clinicos/hero-caso-clinico.jpg';
 
+const acentos = ['bg-emerald-600', 'bg-[#2BBCEA]', 'bg-violet-700'];
+const acentosHover = ['hover:bg-emerald-600', 'hover:bg-[#2BBCEA]', 'hover:bg-violet-700'];
+
 const cardClassName =
-  'emi2-card group relative block rounded-2xl overflow-hidden border border-slate-200 bg-white hover:bg-[#0D2967] hover:border-[#0D2967] transition-colors duration-300 h-full flex flex-col';
+  'group flex flex-col h-full bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl';
 
 export default function CasosClinicosPage() {
   return (
@@ -40,31 +43,31 @@ export default function CasosClinicosPage() {
         <div className="max-w-[1240px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {casosClinicos
             .filter((caso) => !caso.fuenteUrl)
-            .map((caso) => {
+            .map((caso, idx) => {
+            const claseCard = `${cardClassName} ${acentosHover[idx % acentosHover.length]}`;
             const cardBody = (
               <>
-                <div className="relative h-40 overflow-hidden flex-shrink-0">
+                <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
                   <img
                     src={caso.imagen ?? cardCasos}
                     alt=""
                     aria-hidden="true"
-                    className="emi2-card-img absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 group-hover:text-white/60 transition-colors duration-300 mb-2">
-                    Caso clínico {caso.numero}
-                  </span>
-                  <h3 className="text-lg font-bold text-[#0D2967] group-hover:text-white transition-colors duration-300 leading-snug mb-2">
+                <div className="pt-4 px-1.5 pb-1 flex-1 flex flex-col">
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-snug mb-1.5">
                     {caso.titulo}
                   </h3>
-                  <p className="text-sm text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed mb-4">
+                  <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed mb-4">
                     {caso.resumen}
                   </p>
-                  <span className="mt-auto inline-flex items-center gap-2.5 w-fit bg-[#0D2967] group-hover:bg-white/20 group-hover:backdrop-blur-sm transition-colors duration-300 px-4 py-2.5 rounded-full text-white font-semibold text-sm">
+                  <span
+                    className={`mt-auto inline-flex items-center gap-2 w-fit pl-4 pr-1.5 py-1.5 rounded-full text-white font-semibold text-sm transition-colors duration-300 group-hover:bg-white/20 group-hover:backdrop-blur-sm ${acentos[idx % acentos.length]}`}
+                  >
                     Resolver caso
-                    <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-                      <ChevronRight size={14} className="text-slate-900" />
+                    <span className="w-6 h-6 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
+                      <ChevronRight size={12} className="text-white" />
                     </span>
                   </span>
                 </div>
@@ -72,11 +75,11 @@ export default function CasosClinicosPage() {
             );
 
             return caso.fuenteUrl ? (
-              <a key={caso.slug} href={caso.fuenteUrl} target="_blank" rel="noopener noreferrer" className={cardClassName}>
+              <a key={caso.slug} href={caso.fuenteUrl} target="_blank" rel="noopener noreferrer" className={claseCard}>
                 {cardBody}
               </a>
             ) : (
-              <Link key={caso.slug} to={`/ruta-emi-v2/casos-clinicos/${caso.slug}`} className={cardClassName}>
+              <Link key={caso.slug} to={`/ruta-emi-v2/casos-clinicos/${caso.slug}`} className={claseCard}>
                 {cardBody}
               </Link>
             );

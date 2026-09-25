@@ -1,9 +1,9 @@
 import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronRight } from 'lucide-react';
 import logoMark from '../../assets/logo-ruta-emi-mark.svg';
-import logoMarkNavy from '../../assets/logo-ruta-emi-mark-navy.svg';
-import { navItems } from './content';
+import logoMarkDarkBg from '../../assets/logo-ruta-emi-mark-dark-bg.svg';
+import { navItems, RUTA_EMI_URL } from './content';
 
 export function V2Header() {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -14,10 +14,15 @@ export function V2Header() {
         <img src={logoMark} alt="Ruta EMI" className="h-8 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
       </Link>
 
-      <div className="hidden md:flex items-center gap-7">
-        {navItems.map((item) => (
-          <Link key={item.href} to={item.href} className="nav-link text-sm font-medium text-white/80 hover:text-white">
+      <div className="hidden md:flex items-center gap-1 bg-white rounded-full px-2 py-1.5">
+        {navItems.slice(1).map((item) => (
+          <Link
+            key={item.href}
+            to={item.href}
+            className="inline-flex items-center gap-1 text-sm font-medium text-[#0D2967] px-4 py-1.5 rounded-full hover:bg-slate-100 transition"
+          >
             {item.label}
+            <ChevronRight size={14} />
           </Link>
         ))}
       </div>
@@ -51,56 +56,37 @@ export function V2Header() {
 
 export function V2Footer() {
   return (
-    <footer className="bg-[#2BBCEA] py-14 px-6">
-      <div className="max-w-[1240px] mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-10">
+    <footer className="bg-[#0A1428] pt-14 pb-8 px-6">
+      <div className="max-w-[1240px] mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-10">
         <div className="max-w-xs">
-          <img src={logoMarkNavy} alt="Ruta EMI" className="h-9 w-auto mb-3" />
+          <img src={logoMarkDarkBg} alt="Ruta EMI" className="h-14 w-auto mb-4" />
+          <p className="text-white/50 text-sm leading-relaxed">Formación médica basada en rutas de aprendizaje progresivo.</p>
         </div>
 
-        <div className="flex flex-wrap gap-x-16 gap-y-8">
-          <div>
-            <ul className="space-y-2 text-sm">
-              {navItems.slice(0, 2).map((item) => (
-                <li key={item.href}>
-                  <Link to={item.href} className="text-[#0D2967] font-semibold hover:font-bold transition">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <ul className="space-y-2 text-sm">
-              {navItems.slice(2, 4).map((item) => (
-                <li key={item.href}>
-                  <Link to={item.href} className="text-[#0D2967] font-semibold hover:font-bold transition">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#" className="text-[#0D2967] font-semibold hover:font-bold transition">
-                  Términos
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-[#0D2967] font-semibold hover:font-bold transition">
-                  Privacidad
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className="flex flex-col items-start md:items-end gap-5">
+          <nav className="flex flex-wrap items-center gap-x-8 gap-y-2">
+            {navItems.slice(1).map((item) => (
+              <Link key={item.href} to={item.href} className="text-sm font-medium text-white/70 hover:text-white transition">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <a
+            href={RUTA_EMI_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex items-center gap-3 bg-white text-[#0D2967] pl-5 pr-1.5 py-1.5 rounded-full font-semibold text-sm"
+          >
+            Consultar la Ruta EMI
+            <span className="w-7 h-7 rounded-full bg-[#0D2967] text-white flex items-center justify-center flex-shrink-0">
+              <ArrowRight size={14} />
+            </span>
+          </a>
         </div>
       </div>
 
-      <div className="max-w-[1240px] mx-auto border-t-2 border-[#0D2967]/20 mt-10 pt-6">
-        <p className="text-xs text-[#0D2967]/70 font-medium text-center">
+      <div className="max-w-[1240px] mx-auto border-t border-white/10 pt-6">
+        <p className="text-xs text-white/40 font-medium text-center">
           © {new Date().getFullYear()} Ruta EMI. Todos los derechos reservados.
         </p>
       </div>

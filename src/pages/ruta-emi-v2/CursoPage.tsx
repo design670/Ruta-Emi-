@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ExternalLink, PlayCircle, GraduationCap, Users, Calendar, Clock, Monitor, Award } from 'lucide-react';
+import { ChevronLeft, ExternalLink, Users, Calendar, Clock, Monitor, Award } from 'lucide-react';
 import { V2Header, V2Footer, V2PageShell } from './Layout';
 import { RUTA_EMI_URL, modulosCurso } from './content';
 import heroCertifiquese from '../../assets/curso/hero-certifiquese.jpg';
 // Placeholders temporales (4 fotos distintas) hasta que se suban las reales en "Modulos Curso/".
-import imgModulo1 from '../../assets/card-curso.jpg';
+import imgModulo1 from '../../assets/curso/card-modulo1.jpg';
 import imgModulo2 from '../../assets/casos-clinicos/adolescente-meningitis.jpg';
 import imgModulo3 from '../../assets/casos-clinicos/escolar-petequias.jpg';
 import imgModulo4 from '../../assets/soporte-vital.jpg';
@@ -18,10 +18,10 @@ const infoCards = [
 ];
 
 const esquemasModulo = [
-  { imagen: imgModulo1, badge: 'bg-teal-50 text-teal-700', avatar: 'bg-teal-100 text-teal-700', boton: 'border-teal-600 text-teal-700 group-hover:bg-teal-600 group-hover:text-white' },
-  { imagen: imgModulo2, badge: 'bg-emerald-50 text-emerald-700', avatar: 'bg-emerald-100 text-emerald-700', boton: 'border-emerald-600 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white' },
-  { imagen: imgModulo3, badge: 'bg-violet-50 text-violet-700', avatar: 'bg-violet-100 text-violet-700', boton: 'border-violet-600 text-violet-700 group-hover:bg-violet-600 group-hover:text-white' },
-  { imagen: imgModulo4, badge: 'bg-sky-50 text-sky-700', avatar: 'bg-sky-100 text-sky-700', boton: 'border-sky-600 text-sky-700 group-hover:bg-sky-600 group-hover:text-white' },
+  { imagen: imgModulo1, acento: 'bg-teal-600', hover: 'hover:bg-teal-600' },
+  { imagen: imgModulo2, acento: 'bg-emerald-600', hover: 'hover:bg-emerald-600' },
+  { imagen: imgModulo3, acento: 'bg-violet-700', hover: 'hover:bg-violet-700' },
+  { imagen: imgModulo4, acento: 'bg-sky-600', hover: 'hover:bg-sky-600' },
 ];
 
 export default function CursoPage() {
@@ -87,9 +87,9 @@ export default function CursoPage() {
                   href={RUTA_EMI_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col h-full rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className={`group flex flex-col h-full bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${esquema.hover}`}
                 >
-                  <div className="relative h-[190px] flex-shrink-0 overflow-hidden">
+                  <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
                     <img
                       src={esquema.imagen}
                       alt=""
@@ -98,36 +98,18 @@ export default function CursoPage() {
                     />
                   </div>
 
-                  <div className="p-5 flex flex-col flex-1">
+                  <div className="pt-4 px-1.5 pb-1 flex flex-col flex-1">
                     <span
-                      className={`inline-block w-fit px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide mb-3 ${esquema.badge}`}
+                      className={`inline-block w-fit px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide mb-3 text-white transition-colors duration-300 group-hover:bg-white/20 group-hover:backdrop-blur-sm ${esquema.acento}`}
                     >
                       Módulo {modulo.numero}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 leading-snug mb-1.5">{modulo.titulo}</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed mb-4">{modulo.descripcion}</p>
-
-                    <div className="mt-auto">
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${esquema.avatar}`}>
-                          <GraduationCap size={14} />
-                        </span>
-                        <span className="text-xs font-semibold text-slate-600 truncate">{modulo.docente}</span>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                        <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-                          <PlayCircle size={14} />
-                          Curso virtual
-                        </span>
-                        <span
-                          className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border transition-colors duration-200 ${esquema.boton}`}
-                        >
-                          Ver módulo
-                          <ChevronRight size={12} />
-                        </span>
-                      </div>
-                    </div>
+                    <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-snug mb-1.5">
+                      {modulo.titulo}
+                    </h3>
+                    <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
+                      {modulo.descripcion}
+                    </p>
                   </div>
                 </a>
               );

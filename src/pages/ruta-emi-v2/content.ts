@@ -16,7 +16,8 @@ export const modulosCurso = [
   {
     numero: '1',
     titulo: 'La verdadera cara de la EMI',
-    descripcion: 'Describir la carga de enfermedad aguda y secuelas.',
+    descripcion:
+      'Describir la carga de enfermedad aguda y las secuelas de la EMI, dimensionando su impacto real en la población pediátrica.',
     docente: 'Dra. Alexandra Sierra',
     llamado:
       'Reconocer y priorizar la EMI en Colombia, notificar al sistema de vigilancia epidemiológica y ser garantes de esta información.',
@@ -32,14 +33,16 @@ export const modulosCurso = [
   {
     numero: '3',
     titulo: 'Manejo inicial, diagnóstico y notificación',
-    descripcion: 'Reconocimiento de secuelas y orientación sobre la ruta de seguimiento.',
+    descripcion:
+      'Reconocimiento de secuelas de la EMI y orientación sobre la ruta de seguimiento, incluyendo la articulación con especialistas.',
     docente: 'Dr. Wilfrido Coronell',
     llamado: 'Nuestro compromiso va más allá de la enfermedad aguda.',
   },
   {
     numero: '4',
     titulo: 'La EMI no espera, un llamado a las estrategias de prevención',
-    descripcion: 'Enfoque sobre vacunación y quimioprofilaxis.',
+    descripcion:
+      'Enfoque sobre vacunación y quimioprofilaxis como estrategias clave de prevención, dirigidas a reducir la incidencia de la EMI.',
     docente: 'Dr. Andrés Arias',
     llamado: 'Prevenir siempre será nuestra mejor intervención.',
   },
