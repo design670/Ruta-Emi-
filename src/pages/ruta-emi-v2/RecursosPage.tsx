@@ -18,20 +18,19 @@ export default function RecursosPage() {
       <div className="px-4 md:px-6 pt-4 md:pt-6">
         <div className="relative max-w-[1600px] mx-auto rounded-[2rem] md:rounded-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-20 md:pb-28 min-h-[510px]">
           <img src={heroRecursos} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0D2967] via-[#0D2967]/80 to-[#0D2967]/10" />
 
           <div className="relative z-10">
             <V2Header />
 
-            <div className="max-w-2xl md:max-w-3xl mx-auto md:mx-0 pt-16 md:pt-24 flex flex-col items-start">
+            <div className="max-w-md md:max-w-lg mx-auto md:mx-0 pt-16 md:pt-24 flex flex-col items-start">
               <Link to="/ruta-emi-v2" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white mb-6">
                 <ChevronLeft size={16} />
                 Volver al inicio
               </Link>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight md:whitespace-nowrap">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
                 Recursos recomendados sobre Ruta EMI
               </h1>
-              <p className="text-white/70 leading-relaxed">
+              <p className="text-white font-medium leading-relaxed">
                 Consulte materiales de apoyo para ampliar información, revisar lineamientos, reforzar la toma de
                 decisiones y compartir recursos útiles con equipos de salud.
               </p>

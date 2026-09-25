@@ -17,6 +17,7 @@ const cards = [
     imagen: cardCurso,
     bg: 'bg-[#4B2162]',
     fit: 'object-contain' as const,
+    escala: 112,
   },
   {
     id: 'casos',
@@ -26,6 +27,7 @@ const cards = [
     imagen: cardCasos,
     bg: 'bg-emerald-600',
     fit: 'object-cover' as const,
+    escala: 100,
   },
   {
     id: 'recursos',
@@ -35,6 +37,7 @@ const cards = [
     imagen: cardRecursos,
     bg: 'bg-[#009DDC]',
     fit: 'object-contain' as const,
+    escala: 135,
   },
 ];
 
@@ -52,7 +55,7 @@ export default function RutaEmiV2Landing() {
             src={heroDoctora}
             alt=""
             aria-hidden="true"
-            className="hidden md:block absolute inset-y-0 right-0 md:right-[22%] h-full w-auto max-w-none object-contain object-bottom pointer-events-none select-none"
+            className="hidden md:block absolute bottom-0 right-0 md:right-[22%] h-[85%] w-auto max-w-none object-contain object-bottom pointer-events-none select-none"
           />
 
           <div className="absolute inset-0 z-10 flex flex-col px-4 md:px-6 pt-3 md:pt-4">
@@ -148,10 +151,13 @@ export default function RutaEmiV2Landing() {
                   alt=""
                   aria-hidden="true"
                   className={`emi2-banner-card-img absolute bottom-0 ${card.fit} object-bottom ${
-                    card.fit === 'object-contain'
-                      ? 'left-[-17.5%] w-[135%] max-w-none h-[135%]'
-                      : 'inset-x-0 w-full h-full'
+                    card.fit === 'object-contain' ? 'max-w-none' : 'inset-x-0 w-full h-full'
                   }`}
+                  style={
+                    card.fit === 'object-contain'
+                      ? { left: `${-(card.escala - 100) / 2}%`, width: `${card.escala}%`, height: `${card.escala}%` }
+                      : undefined
+                  }
                 />
                 <div className="relative z-[3] flex flex-col items-start h-full px-6 pt-10 pb-6">
                   <h3 className="text-white font-bold text-2xl leading-tight whitespace-pre-line max-w-[240px] drop-shadow-sm">

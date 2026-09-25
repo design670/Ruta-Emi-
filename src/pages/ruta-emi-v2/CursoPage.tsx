@@ -28,9 +28,8 @@ export default function CursoPage() {
   return (
     <V2PageShell>
       <div className="px-4 md:px-6 pt-4 md:pt-6">
-        <div className="relative max-w-[1600px] mx-auto rounded-t-[2rem] md:rounded-t-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-10 md:pb-14">
+        <div className="relative max-w-[1600px] mx-auto rounded-t-[2rem] md:rounded-t-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-10 md:pb-14 min-h-[420px] md:min-h-[480px]">
           <img src={heroCertifiquese} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0D2967] via-[#0D2967]/80 to-[#0D2967]/10" />
 
           <div className="relative z-10">
             <V2Header />
@@ -41,11 +40,9 @@ export default function CursoPage() {
                 Volver al inicio
               </Link>
               <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">Certifíquese en Ruta EMI</h1>
-              <p className="text-white/70 leading-relaxed">
+              <p className="max-w-sm text-white font-medium leading-relaxed">
                 Este curso acompaña el uso de la Ruta EMI a través de contenidos breves, orientados a la práctica y
-                organizados en 4 módulos. Su propósito es facilitar la comprensión de la ruta, fortalecer la toma de
-                decisiones iniciales y promover una respuesta oportuna ante escenarios compatibles con Enfermedad
-                Meningocócica Invasiva.
+                organizados en 4 módulos.
               </p>
             </div>
           </div>
@@ -78,6 +75,10 @@ export default function CursoPage() {
 
       <main className="flex-1 px-6 py-14 md:py-20">
         <div className="max-w-[1240px] mx-auto">
+          <h2 className="max-w-5xl text-2xl md:text-3xl lg:text-4xl font-bold text-[#0D2967] leading-[1.15] mb-16 md:mb-20">
+            Nuestro propósito es facilitarte la comprensión de la ruta, fortalecer la toma de decisiones iniciales y
+            promover una respuesta oportuna ante escenarios compatibles con Enfermedad Meningocócica Invasiva.
+          </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {modulosCurso.map((modulo, idx) => {
               const esquema = esquemasModulo[idx % esquemasModulo.length];
