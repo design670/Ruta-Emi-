@@ -1,139 +1,126 @@
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ExternalLink, Users, Calendar, Clock, Monitor, Award } from 'lucide-react';
-import { V2Header, V2Footer, V2PageShell } from './Layout';
-import { RUTA_EMI_URL, modulosCurso } from './content';
-import heroCertifiquese from '../../assets/curso/hero-certifiquese.jpg';
-// Placeholders temporales (4 fotos distintas) hasta que se suban las reales en "Modulos Curso/".
-import imgModulo1 from '../../assets/curso/card-modulo1.jpg';
-import imgModulo2 from '../../assets/casos-clinicos/adolescente-meningitis.jpg';
-import imgModulo3 from '../../assets/casos-clinicos/escolar-petequias.jpg';
-import imgModulo4 from '../../assets/soporte-vital.jpg';
+import { ArrowUpRight, Award, Calendar, Clock, Monitor, Users } from 'lucide-react';
+import { HeroInterno, PaginaV3, VentanaRuta, botonNavy, useVentanaRuta } from './Layout';
+import { modulosCurso } from './content';
+import imgHero from '../../assets/curso/hero-certifiquese.jpg';
+import imgPilarReconoce from '../../assets/v3/pilar-reconoce.jpg';
+import imgActua from '../../assets/v3/actua.jpg';
+import imgCasos from '../../assets/v3/casos.jpg';
+import imgPreviene from '../../assets/v3/previene.jpg';
 
-const infoCards = [
-  { icono: Users, etiqueta: 'Dirigido a', valor: 'Pediatras, residentes y otros profesionales de la salud.', span: true },
+// Una fotografía por módulo, en el mismo orden que modulosCurso.
+// Provisional: reutiliza las imágenes del home hasta tener una propia para cada módulo.
+const fotosModulo = [
+  { imagen: imgPilarReconoce, posicion: '50% 35%' },
+  { imagen: imgActua, posicion: '50% 20%' },
+  { imagen: imgCasos, posicion: '50% 40%' },
+  { imagen: imgPreviene, posicion: '50% 25%' },
+];
+
+// Color de la fila al pasar el cursor, el mismo de los casos clínicos
+const coloresHover = ['hover:bg-orange-500', 'hover:bg-emerald-600', 'hover:bg-violet-700', 'hover:bg-sky-600'];
+
+const ficha = [
+  { icono: Users, etiqueta: 'Dirigido a', valor: 'Pediatras, residentes y otros profesionales de la salud.' },
   { icono: Calendar, etiqueta: 'Duración', valor: 'Un mes' },
   { icono: Clock, etiqueta: 'Intensidad horaria', valor: '20 horas' },
   { icono: Monitor, etiqueta: 'Modalidad', valor: 'Curso 100% virtual – Asincrónico' },
   { icono: Award, etiqueta: 'Certificación', valor: 'Online SCP' },
 ];
 
-const esquemasModulo = [
-  { imagen: imgModulo1, acento: 'bg-orange-500', hover: 'hover:bg-orange-500' },
-  { imagen: imgModulo2, acento: 'bg-emerald-600', hover: 'hover:bg-emerald-600' },
-  { imagen: imgModulo3, acento: 'bg-violet-700', hover: 'hover:bg-violet-700' },
-  { imagen: imgModulo4, acento: 'bg-sky-600', hover: 'hover:bg-sky-600' },
-];
+export default function CursoPageV3() {
+  const ventana = useVentanaRuta();
 
-export default function CursoPage() {
   return (
-    <V2PageShell>
-      <div className="px-4 md:px-6 pt-4 md:pt-6">
-        <div className="relative max-w-[1600px] mx-auto rounded-t-[2rem] md:rounded-t-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-10 md:pb-14 min-h-[420px] md:min-h-[480px]">
-          <img src={heroCertifiquese} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
+    <PaginaV3>
+      <HeroInterno
+        titulo={['Certifíquese en', 'Ruta EMI']}
+        texto="Este curso acompaña el uso de la Ruta EMI a través de contenidos breves, orientados a la práctica y organizados en 4 módulos."
+        imagen={imgHero}
+        posicion="0% 100%"
+        fondoPlano="#0F4DB8"
+        colorCurva="#0D2967"
+      />
 
-          <div className="relative z-10">
-            <V2Header />
+      <section className="bg-[#0D2967] text-white px-5 md:px-10 pt-6 md:pt-8 pb-10 md:pb-12">
+        <dl data-grupo className="max-w-[1320px] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.7fr_0.9fr_1fr_1.35fr_1fr] gap-x-8 gap-y-8">
+          {ficha.map((dato) => {
+            const Icono = dato.icono;
+            return (
+              <div
+                key={dato.etiqueta}
+                className="flex items-start gap-3.5 lg:pl-6 lg:border-l lg:border-white/20 lg:first:border-l-0 lg:first:pl-0"
+              >
+                <span className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                  <Icono className="text-[#37D6C4]" size={18} strokeWidth={1.5} />
+                </span>
+                <div className="min-w-0">
+                  <dt className="text-[13px] text-white/55 mb-1">{dato.etiqueta}</dt>
+                  <dd className="text-[17px] md:text-lg lg:text-[19px] font-semibold leading-snug text-white">{dato.valor}</dd>
+                </div>
+              </div>
+            );
+          })}
+        </dl>
+      </section>
 
-            <div className="max-w-2xl mx-auto md:mx-0 pt-16 md:pt-24 flex flex-col items-start">
-              <Link to="/ruta-emi-v3" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white mb-6">
-                <ChevronLeft size={16} />
-                Volver al inicio
-              </Link>
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">Certifíquese en Ruta EMI</h1>
-              <p className="max-w-sm text-white font-medium leading-relaxed">
-                Este curso acompaña el uso de la Ruta EMI a través de contenidos breves, orientados a la práctica y
-                organizados en 4 módulos.
-              </p>
+      <section className="px-5 md:px-10 py-20 md:py-28">
+        <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8">
+          <p data-fade className="lg:col-span-10 lg:col-start-3 v3-serif text-2xl md:text-[1.75rem] lg:text-[2rem] leading-[1.3] max-w-4xl">
+            Nuestro propósito es facilitarte la comprensión de la ruta, fortalecer la toma de decisiones iniciales y
+            promover una respuesta oportuna ante escenarios compatibles con Enfermedad Meningocócica Invasiva.
+          </p>
+        </div>
+
+        <div className="max-w-[1320px] mx-auto mt-16 md:mt-24">
+          <div data-grupo>
+            {modulosCurso.map((modulo, i) => {
+              const foto = fotosModulo[i % fotosModulo.length];
+              return (
+                <article
+                  key={modulo.numero}
+                  className={`v3-fila v3-fila-hover group grid grid-cols-12 gap-x-6 md:gap-x-8 gap-y-5 items-center py-5 md:py-5 pr-0 md:pr-5 rounded-2xl transition-colors duration-500 ${coloresHover[i % coloresHover.length]}`}
+                >
+                  <div className="col-span-12 md:col-span-3 aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden">
+                    <img
+                      src={foto.imagen}
+                      alt=""
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105"
+                      style={{ objectPosition: foto.posicion }}
+                    />
+                  </div>
+                  <div className="col-span-12 md:col-span-4">
+                    <p className="text-[13px] md:text-sm font-bold uppercase tracking-[0.2em] text-[#0D2967] mb-3 transition-colors duration-500 group-hover:text-white">Módulo 0{modulo.numero}</p>
+                    <h3 className="font-semibold tracking-[-0.02em] text-xl md:text-2xl leading-snug transition-colors duration-500 group-hover:text-white">{modulo.titulo}</h3>
+                    <p className="mt-3 text-sm text-[#0A1428]/55 transition-colors duration-500 group-hover:text-white/80">{modulo.docente}</p>
+                  </div>
+                  <p className="col-span-12 md:col-span-5 text-[15px] leading-relaxed text-[#0A1428]/70 transition-colors duration-500 group-hover:text-white/90">
+                    {modulo.descripcion}
+                  </p>
+                </article>
+              );
+            })}
+            <div className="v3-fila pt-10 flex justify-center">
+              <button
+                type="button"
+                onClick={ventana.alternar}
+                aria-expanded={ventana.abierta}
+                aria-controls="v3-certificacion"
+                className="v3-boton"
+                style={botonNavy}
+              >
+                Iniciar certificación
+                <ArrowUpRight
+                  size={15}
+                  className={`transition-transform duration-500 ${ventana.abierta ? 'rotate-90' : ''}`}
+                />
+              </button>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="px-4 md:px-6">
-        <div className="max-w-[1600px] mx-auto bg-[#0D2967] rounded-b-[2rem] md:rounded-b-[2.5rem] px-6 md:px-12 lg:px-16 py-8 md:py-10">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-6">
-            {infoCards.map((card) => {
-              const Icono = card.icono;
-              return (
-                <div
-                  key={card.etiqueta}
-                  className="flex items-start gap-3 lg:pr-6 lg:border-r lg:border-white lg:last:border-r-0 lg:last:pr-0"
-                >
-                  <span className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                    <Icono className="text-[#37D6C4]" size={18} strokeWidth={1.75} />
-                  </span>
-                  <div className="flex flex-col min-w-0">
-                    <span className="text-white/50 text-[11px] mb-0.5">{card.etiqueta}</span>
-                    <span className="text-white font-bold text-sm leading-snug">{card.valor}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      <main className="flex-1 px-6 py-14 md:py-20">
-        <div className="max-w-[1240px] mx-auto">
-          <h2 className="max-w-5xl text-2xl md:text-3xl lg:text-4xl font-bold text-[#0D2967] leading-[1.15] mb-16 md:mb-20">
-            Nuestro propósito es facilitarte la comprensión de la ruta, fortalecer la toma de decisiones iniciales y
-            promover una respuesta oportuna ante escenarios compatibles con Enfermedad Meningocócica Invasiva.
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {modulosCurso.map((modulo, idx) => {
-              const esquema = esquemasModulo[idx % esquemasModulo.length];
-              return (
-                <a
-                  key={modulo.numero}
-                  href={RUTA_EMI_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group flex flex-col h-full bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${esquema.hover}`}
-                >
-                  <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
-                    <img
-                      src={esquema.imagen}
-                      alt=""
-                      aria-hidden="true"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="pt-4 px-1.5 pb-1 flex flex-col flex-1">
-                    <span
-                      className={`inline-block w-fit px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide mb-3 text-white transition-colors duration-300 group-hover:bg-white/20 group-hover:backdrop-blur-sm ${esquema.acento}`}
-                    >
-                      Módulo {modulo.numero}
-                    </span>
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-snug mb-1.5">
-                      {modulo.titulo}
-                    </h3>
-                    <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
-                      {modulo.descripcion}
-                    </p>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-
-          <div className="flex justify-center">
-            <a
-              href={RUTA_EMI_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary inline-flex items-center gap-3 px-7 py-3.5 bg-[#0D2967] text-white rounded-full font-bold"
-            >
-              Iniciar certificación
-              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                <ExternalLink size={15} />
-              </span>
-            </a>
-          </div>
-        </div>
-      </main>
-
-      <V2Footer />
-    </V2PageShell>
+        <VentanaRuta control={ventana} id="v3-certificacion" />
+      </section>
+    </PaginaV3>
   );
 }

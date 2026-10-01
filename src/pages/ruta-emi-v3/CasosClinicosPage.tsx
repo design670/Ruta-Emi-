@@ -1,92 +1,62 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { V2Header, V2Footer, V2PageShell } from './Layout';
-import { casosClinicos } from './content';
-import cardCasos from '../../assets/card-casos.jpg';
-import heroCasoClinico from '../../assets/casos-clinicos/hero-caso-clinico.jpg';
+import { ArrowRight } from 'lucide-react';
+import { HeroInterno, PaginaV3 } from './Layout';
+import { casosScp } from './casos';
+import imgHero from '../../assets/v3/curso.jpg';
 
-const acentos = ['bg-emerald-600', 'bg-[#2BBCEA]', 'bg-violet-700'];
-const acentosHover = ['hover:bg-emerald-600', 'hover:bg-[#2BBCEA]', 'hover:bg-violet-700'];
+// Color de relleno de cada tarjeta al pasar el cursor (los mismos acentos de los módulos de la v3)
+const coloresHover = ['hover:bg-orange-500', 'hover:bg-emerald-600', 'hover:bg-violet-700', 'hover:bg-sky-600'];
 
-const cardClassName =
-  'group flex flex-col h-full bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl';
-
-export default function CasosClinicosPage() {
+export default function CasosClinicosPageV3() {
   return (
-    <V2PageShell>
-      <div className="px-4 md:px-6 pt-4 md:pt-6">
-        <div className="relative max-w-[1600px] mx-auto rounded-[2rem] md:rounded-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-20 md:pb-28 min-h-[510px]">
-          <img src={heroCasoClinico} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
+    <PaginaV3>
+      <HeroInterno
+        titulo={['Casos clínicos para', 'aplicar la Ruta EMI']}
+        texto="Revise escenarios clínicos breves que permiten poner en práctica la ruta, reconocer puntos de decisión y reforzar el abordaje oportuno ante sospecha de EMI."
+        imagen={imgHero}
+        posicion="50% 30%"
+      />
 
-          <div className="relative z-10">
-            <V2Header />
-
-            <div className="max-w-md md:max-w-lg mx-auto md:mx-0 pt-16 md:pt-24 flex flex-col items-start">
-              <Link to="/ruta-emi-v3" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white mb-6">
-                <ChevronLeft size={16} />
-                Volver al inicio
-              </Link>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-                Casos clínicos para aplicar la Ruta EMI
-              </h1>
-              <p className="text-white font-medium leading-relaxed">
-                Revise escenarios clínicos breves que permiten poner en práctica la ruta, reconocer puntos de
-                decisión y reforzar el abordaje oportuno ante sospecha de EMI.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <main className="flex-1 px-6 py-14 md:py-20">
-        <div className="max-w-[1240px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {casosClinicos
-            .filter((caso) => !caso.fuenteUrl)
-            .map((caso, idx) => {
-            const claseCard = `${cardClassName} ${acentosHover[idx % acentosHover.length]}`;
-            const cardBody = (
-              <>
-                <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
-                  <img
-                    src={caso.imagen ?? cardCasos}
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+      <section className="px-2 md:px-6 pt-8 md:pt-10 pb-20 md:pb-28">
+        <div className="max-w-[1352px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-8">
+          {casosScp.map((caso, i) => {
+            return (
+              <Link
+                key={caso.numero}
+                to={`/ruta-emi-v3/casos-clinicos/${caso.slug}`}
+                className={`group flex flex-col rounded-[1.75rem] p-3 md:p-4 transition-colors duration-500 ${
+                  coloresHover[i % coloresHover.length]
+                }`}
+              >
+                {/* Arco superior como en el home (elíptico: la foto es apaisada); al pasar el cursor se endereza */}
+                <div data-revela className="v3-foto-arco aspect-[16/10] overflow-hidden">
+                  {/* El zoom va en este envoltorio: la animación de entrada deja un transform fijo en la imagen */}
+                  <div className="w-full h-full transition-transform duration-[900ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-110">
+                    <img
+                      src={caso.imagen}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: caso.posicion }}
+                    />
+                  </div>
                 </div>
-                <div className="pt-4 px-1.5 pb-1 flex-1 flex flex-col">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-snug mb-1.5">
+                <div data-fade className="pt-6 px-1 pb-2 flex-1 flex flex-col">
+                  <h2 className="font-semibold tracking-[-0.02em] text-xl md:text-2xl leading-snug mb-3 transition-colors duration-500 group-hover:text-white">
                     {caso.titulo}
-                  </h3>
-                  <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed mb-4">
+                  </h2>
+                  <p className="text-[15px] leading-relaxed text-[#0A1428]/65 mb-6 line-clamp-4 transition-colors duration-500 group-hover:text-white/90">
                     {caso.resumen}
                   </p>
-                  <span
-                    className={`mt-auto inline-flex items-center gap-2 w-fit pl-4 pr-1.5 py-1.5 rounded-full text-white font-semibold text-sm transition-colors duration-300 group-hover:bg-white/20 group-hover:backdrop-blur-sm ${acentos[idx % acentos.length]}`}
-                  >
+                  <span className="v3-boton v3-boton-grupo mt-auto self-start text-[#0A1428]" style={{ ['--v3-relleno' as string]: '#fff', ['--v3-relleno-texto' as string]: '#0A1428' }}>
                     Resolver caso
-                    <span className="w-6 h-6 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
-                      <ChevronRight size={12} className="text-white" />
-                    </span>
+                    <ArrowRight size={15} />
                   </span>
                 </div>
-              </>
-            );
-
-            return caso.fuenteUrl ? (
-              <a key={caso.slug} href={caso.fuenteUrl} target="_blank" rel="noopener noreferrer" className={claseCard}>
-                {cardBody}
-              </a>
-            ) : (
-              <Link key={caso.slug} to={`/ruta-emi-v3/casos-clinicos/${caso.slug}`} className={claseCard}>
-                {cardBody}
               </Link>
             );
           })}
         </div>
-      </main>
-
-      <V2Footer />
-    </V2PageShell>
+      </section>
+    </PaginaV3>
   );
 }

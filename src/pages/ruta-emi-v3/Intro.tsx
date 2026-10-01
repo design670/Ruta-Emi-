@@ -24,7 +24,7 @@ function precargar(src: string) {
 /** Espera a que el video del hero tenga datos para reproducir (con tope, para no bloquear la intro). */
 function esperarVideo() {
   return new Promise<void>((resolver) => {
-    const video = document.querySelector<HTMLVideoElement>('.v4-hero-media video');
+    const video = document.querySelector<HTMLVideoElement>('.v3-hero-media video');
     if (!video || video.readyState >= 2) {
       resolver();
       return;
@@ -88,26 +88,26 @@ export function Intro({ recursosCriticos, onReveal, onDone }: IntroProps) {
     window.addEventListener('resize', dibujar);
 
     // Contenido del hero que se recoloca mientras la ventana se abre
-    const medioHero = document.querySelector<HTMLElement>('.v4-hero-media-inner');
+    const medioHero = document.querySelector<HTMLElement>('.v3-hero-media-inner');
 
     const ctx = gsap.context(() => {
-      gsap.set('.v4-intro-linea-in', { yPercent: 110 });
-      gsap.set('.v4-intro-regla', { scaleX: 0 });
+      gsap.set('.v3-intro-linea-in', { yPercent: 110 });
+      gsap.set('.v3-intro-regla', { scaleX: 0 });
       // El video arranca desplazado para que el rostro quede dentro de la ventana y se recoloca de
       // forma continua (sin cortes ni deformación) mientras la ventana se abre.
       if (medioHero) gsap.set(medioHero, { scale: 1.08, yPercent: 12 });
 
       const tl = gsap.timeline({ paused: true });
 
-      tl.to('.v4-intro-linea-in', { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.09 }, 0)
-        .to('.v4-intro-regla', { scaleX: 1, duration: 1.2, ease: 'power2.inOut' }, 0.1)
+      tl.to('.v3-intro-linea-in', { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.09 }, 0)
+        .to('.v3-intro-regla', { scaleX: 1, duration: 1.2, ease: 'power2.inOut' }, 0.1)
         .to(estado, { subida: 1, duration: 1.25, ease: 'power3.out', onUpdate: dibujar }, 0.75)
         .to(
-          '.v4-intro-linea-in',
+          '.v3-intro-linea-in',
           { yPercent: -110, duration: 0.7, ease: 'power3.in', stagger: 0.05 },
           2.15,
         )
-        .to('.v4-intro-regla', { scaleX: 0, transformOrigin: 'right center', duration: 0.6, ease: 'power2.in' }, 2.15)
+        .to('.v3-intro-regla', { scaleX: 0, transformOrigin: 'right center', duration: 0.6, ease: 'power2.in' }, 2.15)
         .to(estado, { apertura: 1, duration: 1.6, ease: 'expo.inOut', onUpdate: dibujar }, 2.25);
 
       if (medioHero) tl.to(medioHero, { scale: 1, yPercent: 0, duration: 1.6, ease: 'expo.inOut' }, 2.25);
@@ -152,12 +152,12 @@ export function Intro({ recursosCriticos, onReveal, onDone }: IntroProps) {
       />
 
       <div className="absolute inset-x-0 top-[10svh] md:top-[12svh] flex flex-col items-center text-center px-6">
-        <span className="v4-linea">
-          <span className="v4-intro-linea-in v4-serif block text-white text-3xl md:text-5xl leading-[1.15]">
+        <span className="v3-linea">
+          <span className="v3-intro-linea-in v3-serif block text-white text-3xl md:text-5xl leading-[1.15]">
             Bienvenido a la <strong className="!font-semibold">RUTA EMI</strong>
           </span>
         </span>
-        <span className="v4-intro-regla mt-6 block h-px w-24 bg-white/50 origin-left" />
+        <span className="v3-intro-regla mt-6 block h-px w-24 bg-white/50 origin-left" />
       </div>
     </div>
   );

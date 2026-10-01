@@ -1,14 +1,14 @@
 // Casos clínicos Ruta EMI publicados por la SCP (https://scp.com.co/casos-ruta-emi/).
 // Cada caso se resuelve en su página de la SCP; las fotografías son las de esa misma página.
-import caso1 from '../../assets/v4/casos-scp/caso-1.webp';
-import caso2 from '../../assets/v4/casos-scp/caso-2.webp';
-import caso3 from '../../assets/v4/casos-scp/caso-3.jpg';
-import caso4 from '../../assets/v4/casos-scp/caso-4.webp';
-import caso5 from '../../assets/v4/casos-scp/caso-5.jpg';
+import caso1 from '../../assets/v3/casos-scp/caso-1.webp';
+import caso2 from '../../assets/v3/casos-scp/caso-2.webp';
+import caso3 from '../../assets/v3/casos-scp/caso-3.jpg';
+import caso4 from '../../assets/v3/casos-scp/caso-4.webp';
+import caso5 from '../../assets/v3/casos-scp/caso-5.jpg';
 
 export interface CasoScp {
   numero: number;
-  /** Dirección de la página interna del caso: /ruta-emi-v4/casos-clinicos/<slug> */
+  /** Dirección de la página interna del caso: /ruta-emi-v3/casos-clinicos/<slug> */
   slug: string;
   titulo: string;
   resumen: string;

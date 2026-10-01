@@ -1,87 +1,152 @@
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { V2Header, V2Footer, V2PageShell } from './Layout';
-import { recursos, RUTA_EMI_URL } from './content';
-import heroRecursos from '../../assets/recursos/hero-recursos.jpg';
-import cardPdfGuias from '../../assets/recursos/card-pdf-guias.jpg';
-import cardInfografias from '../../assets/recursos/card-infografias.jpg';
-import cardEnlaces from '../../assets/recursos/card-enlaces.jpg';
-import cardVideos from '../../assets/recursos/card-videos.jpg';
+import { useState } from 'react';
+import { ArrowUpRight, Download, Plus } from 'lucide-react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { HeroInterno, PaginaV3 } from './Layout';
+import { recursos } from './content';
+import imgHero from '../../assets/recursos/hero-recursos.jpg';
 
-const imagenes = [cardPdfGuias, cardInfografias, cardEnlaces, cardVideos];
-const acentos = ['bg-emerald-600', 'bg-[#2BBCEA]', 'bg-violet-700', 'bg-orange-500'];
-const acentosHover = ['hover:bg-emerald-600', 'hover:bg-[#2BBCEA]', 'hover:bg-violet-700', 'hover:bg-orange-500'];
+interface Archivo {
+  nombre: string;
+  formato: string;
+  /** Sin url el archivo se muestra como pendiente (todavía no hay fichero real que descargar). */
+  url?: string;
+  /** Los enlaces se abren fuera; el resto se descarga. */
+  externo?: boolean;
+}
 
-export default function RecursosPage() {
+// Placeholder: nombres de ejemplo hasta que se carguen los archivos reales de cada categoría.
+const archivosPorTipo: Record<string, Archivo[]> = {
+  'PDF y Guías': [
+    { nombre: 'Guía rápida de la Ruta EMI', formato: 'PDF' },
+    { nombre: 'Protocolo de atención en la primera hora', formato: 'PDF' },
+    { nombre: 'Resumen clínico: signos de alarma', formato: 'PDF' },
+  ],
+  Infografías: [
+    { nombre: 'Signos de alarma de la EMI', formato: 'PNG' },
+    { nombre: 'Código EMI: acciones clave', formato: 'PDF' },
+    { nombre: 'Estrategias de prevención', formato: 'PNG' },
+  ],
+  Enlaces: [
+    { nombre: 'Casos clínicos — Sociedad Colombiana de Pediatría', formato: 'Enlace', url: 'https://scp.com.co/casos-clinicos/', externo: true },
+    { nombre: 'Lineamientos de vigilancia epidemiológica', formato: 'Enlace', externo: true },
+    { nombre: 'Referencias y artículos recomendados', formato: 'Enlace', externo: true },
+  ],
+};
+
+const archivosPorDefecto: Archivo[] = [
+  { nombre: 'Módulo 1 · La verdadera cara de la EMI', formato: 'Video' },
+  { nombre: 'Módulo 2 · Código EMI', formato: 'Video' },
+  { nombre: 'Módulo 3 · Manejo inicial, diagnóstico y notificación', formato: 'Video' },
+];
+
+export default function RecursosPageV3() {
+  const [abierto, setAbierto] = useState<string | null>(null);
+
   return (
-    <V2PageShell>
-      <div className="px-4 md:px-6 pt-4 md:pt-6">
-        <div className="relative max-w-[1600px] mx-auto rounded-[2rem] md:rounded-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-20 md:pb-28 min-h-[510px]">
-          <img src={heroRecursos} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
+    <PaginaV3>
+      <HeroInterno
+        titulo={['Recursos', 'recomendados', 'sobre Ruta EMI']}
+        texto="Consulte materiales de apoyo para ampliar información, revisar lineamientos, reforzar la toma de decisiones y compartir recursos útiles con equipos de salud."
+        imagen={imgHero}
+        posicion="8% 100%"
+        fondoPlano="#F07A1F"
+      />
 
-          <div className="relative z-10">
-            <V2Header />
+      <section className="px-5 md:px-10 py-20 md:py-28">
+        <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8">
+          <div data-grupo className="lg:col-span-12">
+            {recursos.map((recurso, i) => {
+              const estaAbierto = abierto === recurso.tipo;
+              const archivos = archivosPorTipo[recurso.tipo] ?? archivosPorDefecto;
+              const idPanel = `v3-recurso-${i}`;
 
-            <div className="max-w-md md:max-w-lg mx-auto md:mx-0 pt-16 md:pt-24 flex flex-col items-start">
-              <Link to="/ruta-emi-v3" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white mb-6">
-                <ChevronLeft size={16} />
-                Volver al inicio
-              </Link>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-                Recursos recomendados sobre Ruta EMI
-              </h1>
-              <p className="text-white font-medium leading-relaxed">
-                Consulte materiales de apoyo para ampliar información, revisar lineamientos, reforzar la toma de
-                decisiones y compartir recursos útiles con equipos de salud.
-              </p>
-            </div>
+              return (
+                <div key={recurso.tipo} className="v3-fila">
+                  <button
+                    type="button"
+                    onClick={() => setAbierto(estaAbierto ? null : recurso.tipo)}
+                    aria-expanded={estaAbierto}
+                    aria-controls={idPanel}
+                    className="group w-full text-left grid grid-cols-12 gap-x-4 gap-y-2 items-baseline py-8 md:py-9"
+                  >
+                    <span
+                      className={`col-span-10 md:col-span-4 font-semibold tracking-[-0.02em] text-xl md:text-2xl leading-snug transition-colors duration-300 group-hover:text-[#1597CF] group-focus-visible:text-[#1597CF] ${
+                        estaAbierto ? 'text-[#1597CF]' : ''
+                      }`}
+                    >
+                      {recurso.tipo}
+                    </span>
+                    <span className="order-last md:order-none col-span-12 md:col-span-7 text-[15px] leading-relaxed text-[#0A1428]/70">
+                      {recurso.descripcion}
+                    </span>
+                    <span className="col-span-2 md:col-span-1 flex justify-end self-center">
+                      <Plus
+                        size={22}
+                        strokeWidth={1.5}
+                        className={`transition-[transform,color] duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:text-[#1597CF] ${
+                          estaAbierto ? 'rotate-45 text-[#1597CF]' : ''
+                        }`}
+                      />
+                    </span>
+                  </button>
+
+                  <div
+                    id={idPanel}
+                    className={`grid ${estaAbierto ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+                    style={{ transition: 'grid-template-rows 800ms cubic-bezier(0.65, 0, 0.35, 1)' }}
+                    onTransitionEnd={(e) => {
+                      if (e.target === e.currentTarget) ScrollTrigger.refresh();
+                    }}
+                  >
+                    <div className="overflow-hidden">
+                      <ul
+                        className={`pb-9 transition-opacity duration-700 ${
+                          estaAbierto ? 'opacity-100 delay-200' : 'opacity-0'
+                        }`}
+                      >
+                        {archivos.map((archivo) => {
+                          const Icono = archivo.externo ? ArrowUpRight : Download;
+                          const accion = archivo.externo ? 'Abrir' : 'Descargar';
+                          const contenido = (
+                            <>
+                              <span className="flex-1 text-[15px] leading-snug">{archivo.nombre}</span>
+                              <span className="v3-etiqueta text-[#0D2967]/55 hidden sm:block w-20">{archivo.formato}</span>
+                              <span className="inline-flex items-center gap-2 text-sm">
+                                {archivo.url ? accion : 'Próximamente'}
+                                <Icono size={15} />
+                              </span>
+                            </>
+                          );
+                          const clase =
+                            'flex items-center gap-4 md:gap-8 py-4 px-4 md:px-5 rounded-xl transition-colors duration-300';
+
+                          return (
+                            <li key={archivo.nombre} className="border-t border-[#0A1428]/10 first:border-t-0">
+                              {archivo.url ? (
+                                <a
+                                  href={archivo.url}
+                                  {...(archivo.externo ? { target: '_blank', rel: 'noopener noreferrer' } : { download: true })}
+                                  tabIndex={estaAbierto ? 0 : -1}
+                                  className={`${clase} hover:bg-[#0A1428] hover:text-white`}
+                                >
+                                  {contenido}
+                                </a>
+                              ) : (
+                                <span className={`${clase} text-[#0A1428]/45`}>{contenido}</span>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <div className="v3-fila" />
           </div>
         </div>
-      </div>
-
-      <main className="flex-1 px-6 py-14 md:py-20">
-        <div className="max-w-[1240px] mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {recursos.map((recurso, idx) => {
-            return (
-              <a
-                key={recurso.tipo}
-                href={RUTA_EMI_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group flex flex-col h-full bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${acentosHover[idx % acentosHover.length]}`}
-              >
-                <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
-                  <img
-                    src={imagenes[idx % imagenes.length]}
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="pt-4 px-1.5 pb-1 flex flex-col flex-1">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 mb-1.5">
-                    {recurso.tipo}
-                  </h3>
-                  <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed mb-4">
-                    {recurso.descripcion}
-                  </p>
-                  <span
-                    className={`mt-auto inline-flex items-center gap-2 w-fit pl-4 pr-1.5 py-1.5 rounded-full text-white font-semibold text-sm transition-colors duration-300 group-hover:bg-white/20 group-hover:backdrop-blur-sm ${acentos[idx % acentos.length]}`}
-                  >
-                    Ver recursos
-                    <span className="w-6 h-6 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
-                      <ChevronRight size={12} />
-                    </span>
-                  </span>
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </main>
-
-      <V2Footer />
-    </V2PageShell>
+      </section>
+    </PaginaV3>
   );
 }

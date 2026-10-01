@@ -1,169 +1,119 @@
-import { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { V2Header, V2Footer, V2PageShell } from './Layout';
-import { RUTA_EMI_URL } from './content';
-import heroConoce from '../../assets/que-es/hero-conoce.jpg';
-import objetivo1 from '../../assets/que-es/objetivo-1.jpg';
-import objetivo2 from '../../assets/que-es/objetivo-2.jpg';
-import objetivo3 from '../../assets/que-es/objetivo-3.jpg';
-import objetivo4 from '../../assets/que-es/objetivo-4.jpg';
-
-const acentosHover = ['hover:bg-emerald-600', 'hover:bg-[#2BBCEA]', 'hover:bg-violet-700', 'hover:bg-orange-500'];
-
-const cardClassName =
-  'group flex flex-col bg-white rounded-[1.75rem] border border-slate-200 hover:border-transparent p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl';
+import { ArrowRight } from 'lucide-react';
+import { HeroInterno, PaginaV3, botonNavy } from './Layout';
+import imgHero from '../../assets/v3/queeshero.jpg';
+import imgObjetivo1 from '../../assets/que-es/objetivo-1.jpg';
+import imgObjetivo2 from '../../assets/que-es/objetivo-2.jpg';
+import imgObjetivo3 from '../../assets/que-es/objetivo-3.jpg';
+import imgObjetivo4 from '../../assets/que-es/objetivo-4.jpg';
 
 const objetivos = [
   {
     titulo: 'Reconocer el impacto de la EMI',
     descripcion:
       'Reconocer el impacto de la EMI en niños y adolescentes, identificando su carga, manifestaciones, complicaciones, secuelas y vigilancia epidemiológica.',
-    imagen: objetivo1,
+    imagen: imgObjetivo1,
   },
   {
     titulo: 'Sospecha y reconocimiento temprano',
     descripcion:
       'Fortalecer la sospecha y el reconocimiento temprano de la EMI, estableciendo signos de alarma y aplicando acciones durante la primera hora de atención.',
-    imagen: objetivo2,
+    imagen: imgObjetivo2,
   },
   {
     titulo: 'Secuelas y seguimiento integral',
     descripcion:
       'Identificar las principales secuelas de la EMI en la población pediátrica y orientar al niño, al adolescente y a su familia hacia un seguimiento integral.',
-    imagen: objetivo3,
+    imagen: imgObjetivo3,
   },
   {
     titulo: 'Prevención: vacunación y quimioprofilaxis',
     descripcion:
       'Determinar y promover las estrategias de prevención de la EMI, con énfasis en vacunación y quimioprofilaxis, como herramientas para reducir el riesgo de la enfermedad y sus desenlaces.',
-    imagen: objetivo4,
+    imagen: imgObjetivo4,
   },
 ];
 
-export default function QueEsPage() {
-  const objetivosScrollRef = useRef<HTMLDivElement>(null);
-
-  const desplazarObjetivos = (direccion: 'izquierda' | 'derecha') => {
-    const contenedor = objetivosScrollRef.current;
-    if (!contenedor) return;
-    const distancia = contenedor.clientWidth * 0.8;
-    contenedor.scrollBy({ left: direccion === 'derecha' ? distancia : -distancia, behavior: 'smooth' });
-  };
-
+export default function QueEsPageV3() {
   return (
-    <V2PageShell>
-      <div className="px-4 md:px-6 pt-4 md:pt-6">
-        <div className="relative max-w-[1600px] mx-auto rounded-[2rem] md:rounded-[2.5rem] overflow-hidden px-6 md:px-12 lg:px-16 pt-4 md:pt-6 pb-20 md:pb-28 min-h-[510px]">
-          <img src={heroConoce} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover object-[30%_center]" />
+    <PaginaV3>
+      <HeroInterno
+        titulo={['¿Qué es la', 'Ruta EMI?']}
+        texto="Una guía práctica para sospechar, reconocer y actuar a tiempo frente a la Enfermedad Meningocócica Invasiva."
+        imagen={imgHero}
+        posicion="0% 50%"
+      />
 
-          <div className="relative z-10">
-            <V2Header />
-
-            <div className="max-w-2xl mx-auto md:mx-0 pt-16 md:pt-24 flex flex-col items-start">
-              <Link to="/ruta-emi-v3" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white mb-6">
-                <ChevronLeft size={16} />
-                Volver al inicio
-              </Link>
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">¿Qué es la Ruta EMI?</h1>
+      <section className="px-5 md:px-10 pt-16 md:pt-24 pb-6">
+        <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-10 lg:col-start-3">
+            <p data-fade className="v3-serif text-2xl md:text-[1.75rem] lg:text-[2rem] leading-[1.3] max-w-5xl mb-8">
+              <span className="v3-semi">La Enfermedad Meningocócica Invasiva (EMI)</span> representa una de las emergencias infecciosas más
+              desafiantes en pediatría por su rápida progresión, su potencial para generar desenlaces graves y la
+              posibilidad de dejar secuelas que pueden acompañar al niño o adolescente durante toda su vida.
+            </p>
+            <div data-grupo className="space-y-4 max-w-5xl text-[15px] md:text-base leading-relaxed text-[#0A1428]/70">
+              <p>
+                En este escenario, cada minuto cuenta: reconocer tempranamente los signos de alarma, sospechar la
+                enfermedad y actuar de manera oportuna, puede marcar una diferencia significativa en el pronóstico.
+              </p>
+              <p>
+                Este curso virtual ofrece una mirada integral y práctica de la EMI en la población pediátrica,
+                abordando el reto desde cuatro momentos fundamentales: reconocer la enfermedad, actuar a tiempo,
+                acompañar más allá de la fase aguda y prevenir.
+              </p>
+              <p>
+                A lo largo de los módulos, los participantes fortalecerán sus herramientas para identificar
+                oportunamente al paciente pediátrico con sospecha de EMI, tomar decisiones claves durante la primera
+                hora de atención, reconocer y orientar el manejo de sus posibles secuelas, y aplicar estrategias de
+                prevención como la vacunación y la quimioprofilaxis. Porque frente a la EMI, la oportunidad de actuar
+                puede cambiar una historia y la prevención puede evitarla.
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <main className="flex-1 px-6 py-14 md:py-20">
-        <div className="max-w-[1240px] mx-auto">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0D2967] leading-[1.15] mb-6">
-            La enfermedad meningocócica invasiva (EMI) representa una de las emergencias infecciosas más desafiantes
-            en pediatría por su rápida progresión, su potencial para generar desenlaces graves y la posibilidad de
-            dejar secuelas que pueden acompañar al niño o adolescente durante toda su vida.
+      <section className="px-5 md:px-10 pt-16 md:pt-20 pb-20 md:pb-28">
+        <div className="max-w-[1320px] mx-auto">
+          <h2 data-fade className="v3-serif text-3xl md:text-4xl leading-[1.08] mb-6 md:mb-8">
+            Cuatro objetivos
           </h2>
-          <p className="text-slate-700 leading-relaxed mb-6">
-            En este escenario, cada minuto cuenta: reconocer tempranamente los signos de alarma, sospechar la
-            enfermedad y actuar de manera oportuna, puede marcar una diferencia significativa en el pronóstico.
-          </p>
-          <p className="text-slate-700 leading-relaxed mb-6">
-            Este curso virtual ofrece una mirada integral y práctica de la EMI en la población pediátrica, abordando
-            el reto desde cuatro momentos fundamentales: reconocer la enfermedad, actuar a tiempo, acompañar más allá
-            de la fase aguda y prevenir.
-          </p>
-          <p className="text-slate-700 leading-relaxed mb-8">
-            A lo largo de los módulos, los participantes fortalecerán sus herramientas para identificar oportunamente
-            al paciente pediátrico con sospecha de EMI, tomar decisiones claves durante la primera hora de atención,
-            reconocer y orientar el manejo de sus posibles secuelas, y aplicar estrategias de prevención como la
-            vacunación y la quimioprofilaxis. Porque frente a la EMI, la oportunidad de actuar puede cambiar una
-            historia y la prevención puede evitarla.
-          </p>
-        </div>
-
-        <div className="max-w-[1240px] mx-auto mt-24 md:mt-32">
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D2967] leading-[1.1]">Objetivo</h2>
-            <div className="hidden sm:flex gap-3 flex-shrink-0">
-              <button
-                type="button"
-                onClick={() => desplazarObjetivos('izquierda')}
-                aria-label="Ver objetivo anterior"
-                className="w-11 h-11 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 transition flex items-center justify-center"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              <button
-                type="button"
-                onClick={() => desplazarObjetivos('derecha')}
-                aria-label="Ver siguiente objetivo"
-                className="w-11 h-11 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 transition flex items-center justify-center"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </div>
-          </div>
-          <div
-            ref={objetivosScrollRef}
-            className="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth px-6 -mx-6 scroll-px-6 pt-4 -mt-4 pb-12"
-          >
-            {objetivos.map((objetivo, idx) => (
-              <div
+          <div data-grupo>
+            {objetivos.map((objetivo, i) => (
+              <article
                 key={objetivo.titulo}
-                className={`${cardClassName} ${acentosHover[idx % acentosHover.length]} snap-start flex-shrink-0 w-[78%] sm:w-[46%] lg:w-[30.5%]`}
+                className="v3-fila v3-fila-hover group grid grid-cols-12 gap-x-6 md:gap-x-8 gap-y-5 items-center py-8 md:py-9"
               >
-                <div className="relative h-44 flex-shrink-0 rounded-2xl overflow-hidden">
+                <div className="col-span-12 md:col-span-3 aspect-[16/10] md:aspect-[4/3] rounded-2xl overflow-hidden">
                   <img
                     src={objetivo.imagen}
                     alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105"
                   />
                 </div>
-                <div className="pt-4 px-1.5 pb-1 flex-1 flex flex-col">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-white transition-colors duration-300 leading-snug mb-1.5">
+                <div className="col-span-12 md:col-span-4">
+                  <p className="text-[13px] md:text-sm font-bold uppercase tracking-[0.2em] text-[#0D2967] mb-3">
+                    Objetivo 0{i + 1}
+                  </p>
+                  <h3 className="font-semibold tracking-[-0.02em] text-xl md:text-2xl leading-snug">
                     {objetivo.titulo}
                   </h3>
-                  <p className="text-xs text-slate-500 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
-                    {objetivo.descripcion}
-                  </p>
                 </div>
-              </div>
+                <p className="col-span-12 md:col-span-5 text-[15px] leading-relaxed text-[#0A1428]/70">
+                  {objetivo.descripcion}
+                </p>
+              </article>
             ))}
+            <div className="v3-fila pt-10 flex justify-center">
+              <button type="button" className="v3-boton" style={botonNavy}>
+                Ver el curso
+                <ArrowRight size={15} />
+              </button>
+            </div>
           </div>
         </div>
-
-        <div className="max-w-3xl mx-auto flex justify-center">
-          <a
-            href={RUTA_EMI_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-3 px-7 py-3.5 bg-[#0D2967] text-white rounded-full font-bold"
-          >
-            Conozca cómo aplicar la ruta
-            <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-              <ChevronRight size={15} />
-            </span>
-          </a>
-        </div>
-      </main>
-
-      <V2Footer />
-    </V2PageShell>
+      </section>
+    </PaginaV3>
   );
 }
