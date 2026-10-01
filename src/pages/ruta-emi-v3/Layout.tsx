@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, ChevronRight, Facebook, Instagram, Twitter, X, Youtube } from 'lucide-react';
 import gsap from 'gsap';
@@ -356,7 +356,17 @@ export function HeroInterno({
       style={claro ? { backgroundColor: fondoPlano } : undefined}
     >
       <div className="v3-hero-media absolute inset-0 will-change-transform">
-        <img src={imagen} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: posicion }} />
+        {/* Foto de estudio: en móvil se muestra completa (la persona cabe en el ancho) sobre el color de fondo */}
+        <img
+          src={imagen}
+          alt=""
+          className={
+            claro
+              ? 'absolute inset-x-0 top-0 w-full h-[115vw] md:inset-y-0 md:h-full object-cover [mask-image:linear-gradient(to_bottom,#000_70%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,#000_70%,transparent)] md:[mask-image:none] md:[-webkit-mask-image:none] [object-position:50%_50%] md:[object-position:var(--pos-hero)]'
+              : 'absolute inset-0 w-full h-full object-cover'
+          }
+          style={claro ? ({ ['--pos-hero' as string]: posicion } as CSSProperties) : { objectPosition: posicion }}
+        />
         {claro ? (
           // Velo del color del fondo bajo el texto blanco: lateral en escritorio y desde abajo en
           // móvil, donde la persona ocupa todo el ancho
@@ -370,7 +380,7 @@ export function HeroInterno({
             <div
               className="absolute inset-0 md:hidden"
               style={{
-                background: `linear-gradient(to top, ${fondoPlano}, color-mix(in srgb, ${fondoPlano} 80%, transparent) 50%, transparent)`,
+                background: `linear-gradient(to top, ${fondoPlano} 0%, ${fondoPlano} 28%, color-mix(in srgb, ${fondoPlano} 60%, transparent) 48%, transparent 68%)`,
               }}
             />
           </>
