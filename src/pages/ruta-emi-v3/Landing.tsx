@@ -456,8 +456,8 @@ export default function RutaEmiV3Landing() {
                 className="group/enlace flex items-baseline gap-5 py-3 md:py-4 border-b border-white/15"
               >
                 <span className="v3-menu-fade text-[11px] tracking-[0.3em] text-white/50 w-8">0{i + 1}</span>
-                <span className="v3-linea v3-serif text-3xl md:text-5xl leading-[1.1]">
-                  <span className="v3-menu-l transition-transform duration-500 group-hover/enlace:translate-x-4">
+                <span className="v3-linea v3-serif text-3xl md:text-5xl leading-[1.1] transition-transform duration-500 group-hover/enlace:translate-x-4">
+                  <span className="v3-menu-l">
                     {enlace.label}
                   </span>
                 </span>
