@@ -47,7 +47,7 @@ export default function CasosClinicosPageV4() {
                   <p className="text-[15px] leading-relaxed text-[#0A1428]/65 mb-6 line-clamp-4 transition-colors duration-500 group-hover:text-white/90">
                     {caso.resumen}
                   </p>
-                  <span className="v4-enlace text-sm mt-auto self-start transition-colors duration-500 group-hover:text-white">
+                  <span className="v4-boton v4-boton-grupo mt-auto self-start text-[#0A1428]" style={{ ['--v4-relleno' as string]: '#fff', ['--v4-relleno-texto' as string]: '#0A1428' }}>
                     Resolver caso
                     <ArrowRight size={15} />
                   </span>

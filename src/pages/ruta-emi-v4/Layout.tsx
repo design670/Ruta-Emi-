@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const INICIO_V4 = '/ruta-emi-v4';
 
 export const enlacesV4 = [
-  { label: 'Qué es la Ruta EMI', href: '/ruta-emi-v4#que-es' },
+  { label: 'Qué es la Ruta EMI', href: '/ruta-emi-v4/que-es-la-ruta-emi' },
   { label: 'Curso', href: '/ruta-emi-v4/curso' },
   { label: 'Casos clínicos', href: '/ruta-emi-v4/casos-clinicos' },
   { label: 'Recursos', href: '/ruta-emi-v4/recursos' },
@@ -82,8 +82,8 @@ export function CabeceraV4({ sobreClaro = false }: { sobreClaro?: boolean }) {
           sobreClaro ? 'text-[#0A1428]' : 'text-white'
         }`}
       >
-        <div className="flex items-center justify-between px-5 md:px-10 h-[68px] md:h-[84px]">
-          <Link to={INICIO_V4} aria-label="Ruta EMI — inicio" className="flex-shrink-0">
+        <div className="flex items-center justify-between px-5 md:px-[max(2.5rem,calc((100%_-_1320px)/2))] h-[68px] md:h-[84px]">
+          <Link to={INICIO_V4} aria-label="Ruta EMI — inicio" className="flex-shrink-0 flex flex-col leading-none">
             <img
               src={logoMark}
               alt="Ruta EMI"
@@ -91,6 +91,7 @@ export function CabeceraV4({ sobreClaro = false }: { sobreClaro?: boolean }) {
                 sobreClaro ? '' : '[filter:brightness(0)_invert(1)] group-data-[solido=true]:[filter:none]'
               }`}
             />
+            <span className="mt-1.5 text-[10px] md:text-[11px] font-medium tracking-[0.02em] whitespace-nowrap">Enfermedad Meningocócica Invasiva</span>
           </Link>
 
           <NavPildora />

@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import RegistroPage from './pages/RegistroPage';
 import IniciarSesionPage from './pages/IniciarSesionPage';
@@ -18,6 +18,7 @@ import CasoDetallePageV3 from './pages/ruta-emi-v3/CasoDetallePage';
 import RecursosPageV3 from './pages/ruta-emi-v3/RecursosPage';
 import RutaEmiV4Landing from './pages/ruta-emi-v4/Landing';
 import CursoPageV4 from './pages/ruta-emi-v4/CursoPage';
+import QueEsPageV4 from './pages/ruta-emi-v4/QueEsPage';
 import CasosClinicosPageV4 from './pages/ruta-emi-v4/CasosClinicosPage';
 import CasoDetallePageV4 from './pages/ruta-emi-v4/CasoDetallePage';
 import RecursosPageV4 from './pages/ruta-emi-v4/RecursosPage';
@@ -44,7 +45,7 @@ export default function App() {
         <Route path="/ruta-emi-v3/casos-clinicos/:slug" element={<CasoDetallePageV3 />} />
         <Route path="/ruta-emi-v3/recursos" element={<RecursosPageV3 />} />
         <Route path="/ruta-emi-v4" element={<RutaEmiV4Landing />} />
-        <Route path="/ruta-emi-v4/que-es-la-ruta-emi" element={<Navigate to="/ruta-emi-v4#que-es" replace />} />
+        <Route path="/ruta-emi-v4/que-es-la-ruta-emi" element={<QueEsPageV4 />} />
         <Route path="/ruta-emi-v4/curso" element={<CursoPageV4 />} />
         <Route path="/ruta-emi-v4/casos-clinicos" element={<CasosClinicosPageV4 />} />
         <Route path="/ruta-emi-v4/casos-clinicos/:slug" element={<CasoDetallePageV4 />} />

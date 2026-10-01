@@ -54,10 +54,7 @@ export default function RecursosPageV4() {
 
       <section className="px-5 md:px-10 py-20 md:py-28">
         <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8">
-          <p data-fade className="v4-etiqueta lg:col-span-2 text-[#0D2967]/70 pt-2">
-            Biblioteca
-          </p>
-          <div data-grupo className="lg:col-span-10">
+          <div data-grupo className="lg:col-span-12">
             {recursos.map((recurso, i) => {
               const estaAbierto = abierto === recurso.tipo;
               const archivos = archivosPorTipo[recurso.tipo] ?? archivosPorDefecto;

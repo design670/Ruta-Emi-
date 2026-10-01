@@ -2,7 +2,7 @@ import { ArrowUpRight, Award, Calendar, Clock, Monitor, Users } from 'lucide-rea
 import { HeroInterno, PaginaV4, VentanaRuta, botonNavy, useVentanaRuta } from './Layout';
 import { modulosCurso } from '../ruta-emi-v3/content';
 import imgHero from '../../assets/curso/hero-certifiquese.jpg';
-import imgReconoce from '../../assets/v4/reconoce.jpg';
+import imgPilarReconoce from '../../assets/v4/pilar-reconoce.jpg';
 import imgActua from '../../assets/v4/actua.jpg';
 import imgCasos from '../../assets/v4/casos.jpg';
 import imgPreviene from '../../assets/v4/previene.jpg';
@@ -10,11 +10,14 @@ import imgPreviene from '../../assets/v4/previene.jpg';
 // Una fotografía por módulo, en el mismo orden que modulosCurso.
 // Provisional: reutiliza las imágenes del home hasta tener una propia para cada módulo.
 const fotosModulo = [
-  { imagen: imgReconoce, posicion: '50% 22%' },
+  { imagen: imgPilarReconoce, posicion: '50% 35%' },
   { imagen: imgActua, posicion: '50% 20%' },
   { imagen: imgCasos, posicion: '50% 40%' },
   { imagen: imgPreviene, posicion: '50% 25%' },
 ];
+
+// Color de la fila al pasar el cursor, el mismo de los casos clínicos
+const coloresHover = ['hover:bg-orange-500', 'hover:bg-emerald-600', 'hover:bg-violet-700', 'hover:bg-sky-600'];
 
 const ficha = [
   { icono: Users, etiqueta: 'Dirigido a', valor: 'Pediatras, residentes y otros profesionales de la salud.' },
@@ -75,9 +78,9 @@ export default function CursoPageV4() {
               return (
                 <article
                   key={modulo.numero}
-                  className="v4-fila v4-fila-hover group grid grid-cols-12 gap-x-6 md:gap-x-8 gap-y-5 items-center py-8 md:py-9"
+                  className={`v4-fila v4-fila-hover group grid grid-cols-12 gap-x-6 md:gap-x-8 gap-y-5 items-center py-5 md:py-5 pr-0 md:pr-5 rounded-2xl transition-colors duration-500 ${coloresHover[i % coloresHover.length]}`}
                 >
-                  <div className="col-span-12 md:col-span-3 aspect-[16/10] md:aspect-[4/3] rounded-2xl overflow-hidden">
+                  <div className="col-span-12 md:col-span-3 aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden">
                     <img
                       src={foto.imagen}
                       alt=""
@@ -87,17 +90,17 @@ export default function CursoPageV4() {
                     />
                   </div>
                   <div className="col-span-12 md:col-span-4">
-                    <p className="text-[13px] md:text-sm font-bold uppercase tracking-[0.2em] text-[#0D2967] mb-3">Módulo 0{modulo.numero}</p>
-                    <h3 className="font-semibold tracking-[-0.02em] text-xl md:text-2xl leading-snug">{modulo.titulo}</h3>
-                    <p className="mt-3 text-sm text-[#0A1428]/55">{modulo.docente}</p>
+                    <p className="text-[13px] md:text-sm font-bold uppercase tracking-[0.2em] text-[#0D2967] mb-3 transition-colors duration-500 group-hover:text-white">Módulo 0{modulo.numero}</p>
+                    <h3 className="font-semibold tracking-[-0.02em] text-xl md:text-2xl leading-snug transition-colors duration-500 group-hover:text-white">{modulo.titulo}</h3>
+                    <p className="mt-3 text-sm text-[#0A1428]/55 transition-colors duration-500 group-hover:text-white/80">{modulo.docente}</p>
                   </div>
-                  <p className="col-span-12 md:col-span-5 text-[15px] leading-relaxed text-[#0A1428]/70">
+                  <p className="col-span-12 md:col-span-5 text-[15px] leading-relaxed text-[#0A1428]/70 transition-colors duration-500 group-hover:text-white/90">
                     {modulo.descripcion}
                   </p>
                 </article>
               );
             })}
-            <div className="v4-fila pt-10">
+            <div className="v4-fila pt-10 flex justify-center">
               <button
                 type="button"
                 onClick={ventana.alternar}

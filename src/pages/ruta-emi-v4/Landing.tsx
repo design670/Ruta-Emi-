@@ -9,6 +9,7 @@ import { RUTA_EMI_URL, modulosCurso } from '../ruta-emi-v3/content';
 import logoMark from '../../assets/logo-ruta-emi-mark.svg';
 import videoHero from '../../assets/v4/hero.mp4';
 import imgReconoce from '../../assets/v4/reconoce.jpg';
+import imgPilarReconoce from '../../assets/v4/pilar-reconoce.jpg';
 import imgActua from '../../assets/v4/actua.jpg';
 import imgPreviene from '../../assets/v4/previene.jpg';
 import imgCierre from '../../assets/v4/hero.jpg';
@@ -25,8 +26,8 @@ const pilares = [
     nombre: 'Reconoce',
     titulo: ['La sospecha empieza', 'en los detalles.'],
     texto: 'Los primeros signos pueden ser inespecíficos. Reconocerlos a tiempo es el punto de partida de toda la ruta.',
-    imagen: imgReconoce,
-    posicion: '50% 30%',
+    imagen: imgPilarReconoce,
+    posicion: '50% 32%',
   },
   {
     numero: '02',
@@ -382,13 +383,14 @@ export default function RutaEmiV4Landing() {
         data-solido="false"
         className="v4-cabecera fixed top-0 inset-x-0 z-50 text-white data-[solido=true]:bg-white/95 data-[solido=true]:text-[#0A1428] data-[solido=true]:backdrop-blur group"
       >
-        <div className="flex items-center justify-between px-5 md:px-10 h-[68px] md:h-[84px]">
-          <Link to="/ruta-emi-v4" aria-label="Ruta EMI — inicio" className="flex-shrink-0">
+        <div className="flex items-center justify-between px-5 md:px-[max(2.5rem,calc((100%_-_1320px)/2))] h-[68px] md:h-[84px]">
+          <Link to="/ruta-emi-v4" aria-label="Ruta EMI — inicio" className="flex-shrink-0 flex flex-col leading-none">
             <img
               src={logoMark}
               alt="Ruta EMI"
               className="h-7 md:h-8 w-auto [filter:brightness(0)_invert(1)] group-data-[solido=true]:[filter:none]"
             />
+            <span className="mt-1.5 text-[10px] md:text-[11px] font-medium tracking-[0.02em] whitespace-nowrap">Enfermedad Meningocócica Invasiva</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 bg-white rounded-full px-2 py-1.5" aria-label="Principal">
@@ -488,7 +490,7 @@ export default function RutaEmiV4Landing() {
             </div>
           </div>
 
-          <div className="v4-hero-contenido absolute inset-x-0 bottom-0 px-5 md:px-10 pb-8 md:pb-12">
+          <div className="v4-hero-contenido absolute inset-x-0 bottom-0 px-5 md:px-10 pb-[calc(2rem+40px)] md:pb-[calc(3rem+70px)]">
             <div className="max-w-[1320px] mx-auto">
               <div className="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-8">
                 <h1 className="v4-serif text-[2.4rem] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.04]">
@@ -505,7 +507,7 @@ export default function RutaEmiV4Landing() {
                   <p className="v4-hero-fade text-sm md:text-[15px] leading-relaxed text-white/80">
                     Una ruta clínica para reconocer, responder y prevenir la EMI.
                   </p>
-                  <Link to={`/ruta-emi-v4${ANCLA_QUE_ES}`} className="v4-hero-fade v4-enlace text-sm">
+                  <Link to={`/ruta-emi-v4${ANCLA_QUE_ES}`} className="v4-hero-fade v4-boton border-white bg-white text-[#0D2967]" style={{ ['--v4-relleno' as string]: '#2BBCEA', ['--v4-relleno-texto' as string]: '#fff' }}>
                     ¿Qué es la Ruta EMI?
                     <ArrowRight size={15} />
                   </Link>
@@ -555,6 +557,54 @@ export default function RutaEmiV4Landing() {
           </div>
 
           <VentanaRuta control={consulta} id="v4-consulta" />
+        </section>
+
+        {/* ¿Qué es la Ruta EMI? — antes página interna; el enlace del hero baja hasta aquí */}
+        <section id="que-es" className="bg-[#E7E2D8] px-5 md:px-10 py-14 md:py-16 scroll-mt-6">
+          <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-4">
+              <div className="lg:-translate-y-8">
+                <div data-revela className="aspect-[16/9] lg:aspect-auto lg:h-[min(60vh,500px)] overflow-hidden rounded-2xl">
+                  <img
+                    src={imgReconoce}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: '50% 28%' }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 lg:col-start-6">
+              <h2 data-lineas className="v4-serif text-3xl md:text-4xl leading-[1.08] mb-5 md:mb-6">
+                <Lineas lineas={['¿Qué es la Ruta EMI?']} />
+              </h2>
+              <p data-fade className="v4-serif text-lg md:text-xl leading-[1.4] mb-5">
+                <span className="v4-semi">La Enfermedad Meningocócica Invasiva (EMI)</span> representa una de las emergencias infecciosas más
+                desafiantes en pediatría por su rápida progresión, su potencial para generar desenlaces graves y la
+                posibilidad de dejar secuelas que pueden acompañar al niño o adolescente durante toda su vida.
+              </p>
+              <div data-grupo className="v4-serif space-y-3 text-lg md:text-xl leading-[1.4] mb-7 md:mb-8">
+                <p>
+                  En este escenario, cada minuto cuenta: reconocer tempranamente los signos de alarma, sospechar la
+                  enfermedad y actuar de manera oportuna, puede marcar una diferencia significativa en el pronóstico.
+                </p>
+              </div>
+
+              <div data-grupo>
+                <div>
+                  <Link
+                    to="/ruta-emi-v4/que-es-la-ruta-emi"
+                    className="v4-boton text-[#0A1428]"
+                    style={{ ['--v4-relleno' as string]: '#0A1428', ['--v4-relleno-texto' as string]: '#fff' }}
+                  >
+                    Conoce más
+                    <ArrowRight size={15} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Pilares — escritorio: escena fijada */}
@@ -667,7 +717,7 @@ export default function RutaEmiV4Landing() {
                   </span>
                 </Link>
               ))}
-              <div className="v4-fila pt-10">
+              <div className="v4-fila pt-10 flex justify-center">
                 <Link
                   to="/ruta-emi-v4/curso"
                   className="v4-boton text-[#0A1428]"
@@ -676,70 +726,6 @@ export default function RutaEmiV4Landing() {
                   Ver curso
                   <ArrowRight size={15} />
                 </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ¿Qué es la Ruta EMI? — antes página interna; el enlace del hero baja hasta aquí */}
-        <section id="que-es" className="bg-[#E7E2D8] px-5 md:px-10 py-14 md:py-16 scroll-mt-6">
-          <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-4">
-              <div>
-                <div data-revela className="aspect-[16/9] lg:aspect-auto lg:h-[min(60vh,500px)] overflow-hidden rounded-2xl">
-                  <img
-                    src={imgReconoce}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: '50% 28%' }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 lg:col-start-6">
-              <h2 data-lineas className="v4-serif text-3xl md:text-4xl leading-[1.08] mb-5 md:mb-6">
-                <Lineas lineas={['¿Qué es la Ruta EMI?']} />
-              </h2>
-              <p data-fade className="v4-serif text-lg md:text-xl leading-[1.4] mb-5">
-                La enfermedad meningocócica invasiva (EMI) representa una de las emergencias infecciosas más
-                desafiantes en pediatría por su rápida progresión, su potencial para generar desenlaces graves y la
-                posibilidad de dejar secuelas que pueden acompañar al niño o adolescente durante toda su vida.
-              </p>
-              <div data-grupo className="space-y-3 text-sm md:text-[14.5px] leading-relaxed text-[#0A1428]/70 mb-7 md:mb-8">
-                <p>
-                  En este escenario, cada minuto cuenta: reconocer tempranamente los signos de alarma, sospechar la
-                  enfermedad y actuar de manera oportuna, puede marcar una diferencia significativa en el pronóstico.
-                </p>
-                <p>
-                  Este curso virtual ofrece una mirada integral y práctica de la EMI en la población pediátrica,
-                  abordando el reto desde cuatro momentos fundamentales: reconocer la enfermedad, actuar a tiempo,
-                  acompañar más allá de la fase aguda y prevenir.
-                </p>
-                <p>
-                  A lo largo de los módulos, los participantes fortalecerán sus herramientas para identificar
-                  oportunamente al paciente pediátrico con sospecha de EMI, tomar decisiones claves durante la primera
-                  hora de atención, reconocer y orientar el manejo de sus posibles secuelas, y aplicar estrategias de
-                  prevención como la vacunación y la quimioprofilaxis. Porque frente a la EMI, la oportunidad de actuar
-                  puede cambiar una historia y la prevención puede evitarla.
-                </p>
-              </div>
-
-              <div data-grupo>
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!consulta.abierta) consulta.alternar();
-                      document.getElementById('v4-consulta')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }}
-                    className="v4-boton text-[#0A1428]"
-                    style={{ ['--v4-relleno' as string]: '#0A1428', ['--v4-relleno-texto' as string]: '#fff' }}
-                  >
-                    Conozca cómo aplicar la ruta
-                    <ArrowUpRight size={15} />
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -766,7 +752,7 @@ export default function RutaEmiV4Landing() {
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            <path d="M0,0 L100,0 Q50,200 0,0 Z" fill="#E7E2D8" />
+            <path d="M0,0 L100,0 Q50,200 0,0 Z" fill="#FFFFFF" />
           </svg>
 
           <div className="relative w-full px-5 md:px-10 pt-24 md:pt-28 pb-14 md:pb-16">
@@ -775,10 +761,17 @@ export default function RutaEmiV4Landing() {
                 <Lineas lineas={['Empiece hoy', 'su recorrido.']} />
               </h2>
               <div data-fade className="flex flex-col sm:flex-row items-center md:items-start gap-4">
-                <a href={RUTA_EMI_URL} target="_blank" rel="noopener noreferrer" className="v4-boton">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!consulta.abierta) consulta.alternar();
+                    document.getElementById('v4-consulta')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }}
+                  className="v4-boton"
+                >
                   Consultar la Ruta EMI
                   <ArrowUpRight size={15} />
-                </a>
+                </button>
                 <Link to="/ruta-emi-v4/recursos" className="v4-boton">
                   Ver recursos
                   <ArrowRight size={15} />
