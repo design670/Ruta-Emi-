@@ -147,7 +147,6 @@ export function CabeceraV3({ sobreClaro = false }: { sobreClaro?: boolean }) {
               tabIndex={menuAbierto ? 0 : -1}
               className="flex items-baseline gap-5 py-4 border-b border-white/15 overflow-hidden"
             >
-              <span className="w-8 text-[11px] tracking-[0.3em] text-white/50">0{i + 1}</span>
               <span
                 className={`v3-serif block text-3xl leading-[1.1] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${
                   menuAbierto ? 'translate-y-0' : 'translate-y-[130%]'
