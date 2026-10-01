@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, ChevronRight, Facebook, Instagram, Twitter, X, Youtube } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ChevronRight, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { RUTA_EMI_URL } from './content';
@@ -115,6 +115,7 @@ export function CabeceraV3({ sobreClaro = false }: { sobreClaro?: boolean }) {
       {/* Menú móvil a pantalla completa. Va fuera del header: su backdrop-filter recortaría un fixed. */}
       <div
         id="v3-menu-interno"
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-label="Menú principal"
@@ -173,64 +174,7 @@ export function CabeceraV3({ sobreClaro = false }: { sobreClaro?: boolean }) {
   );
 }
 
-const columnasPie = [
-  {
-    titulo: 'La SCP',
-    punto: '#FFD84D',
-    enlaces: [
-      { label: 'Expresidentes', href: 'https://scp.com.co/expresidentes/' },
-      { label: 'Comité de Congresos', href: 'https://scp.com.co/comite-de-congresos/' },
-      { label: 'Capítulos', href: 'https://scp.com.co/capitulos/' },
-      { label: 'Estatutos', href: 'https://scp.com.co/estatutos/' },
-      { label: 'Reglamentos', href: 'https://scp.com.co/reglamentos/' },
-    ],
-  },
-  {
-    titulo: 'Regionales',
-    punto: '#A78BFA',
-    enlaces: [
-      { label: 'Web regionales', href: 'https://scp.com.co/web-regionales/' },
-      { label: 'Plataforma PRIP', href: 'https://www.precepscp.com/adm_login.asp' },
-    ],
-  },
-  {
-    titulo: 'Pediatras',
-    punto: '#2BBCEA',
-    enlaces: [
-      { label: 'Programas para el pediatra', href: 'https://scp.com.co/programa-para-pediatria/' },
-      { label: 'Actualice o registre sus datos', href: 'https://scp.com.co/actualiza-tus-datos/' },
-    ],
-  },
-  {
-    titulo: 'Publicaciones',
-    punto: '#FFD84D',
-    enlaces: [
-      { label: 'ABSTRACT', href: 'https://scp.com.co/abstract/' },
-      { label: 'PRECOP', href: 'https://precop.scp.com.co/' },
-      { label: 'Pediavoz', href: 'https://scp.com.co/pediavoz/' },
-      { label: 'Resiped', href: 'https://residentes.scp.com.co/boletin-resiped/' },
-      { label: 'Revista Crianza & Salud', href: 'https://www.crianzaysalud.com.co/crianza/revistas' },
-    ],
-  },
-];
-
-const enlacesSueltosPie = [
-  { label: 'Plan de actividades', href: 'https://plandeactividades.com/' },
-  { label: 'Contacto', href: 'https://scp.com.co/contacto/' },
-  {
-    label: 'Tratamiento datos personales',
-    href: 'https://scp.com.co/wp-content/uploads/2025/05/Manual-para-el-Tratamiento-de-Datos-Personales-Sociedad-Colombiana-de-Pediatria-SCP-2025.pdf',
-  },
-];
-
-const redesPie = [
-  { label: 'Facebook', href: 'https://www.facebook.com/SociedadColombianadePediatria', Icono: Facebook },
-  { label: 'Instagram', href: 'https://www.instagram.com/scpnacional/', Icono: Instagram },
-  { label: 'Twitter', href: 'https://twitter.com/SCPNacional', Icono: Twitter },
-  { label: 'YouTube', href: 'https://www.youtube.com/channel/UCW8nAqOW5JmI4IU6se5JJ-Q/feed', Icono: Youtube },
-];
-
-/** Pie de la SCP (como en scp.com.co/ruta-emi): logo y redes, columnas de enlaces y enlaces sueltos. */
+/** Pie: logos de la Ruta EMI y de la SCP, texto de apoyo y las secciones; en las páginas internas lleva el remate ondulado de la SCP. */
 export function PieV3({ pegado = false }: { pegado?: boolean }) {
   return (
     <footer className="relative bg-[#0A1428] text-white">
@@ -245,74 +189,27 @@ export function PieV3({ pegado = false }: { pegado?: boolean }) {
           <path d="M0,60 C150,68 290,72 420,72 C800,70 1100,50 1300,42 C1450,35 1550,32 1620,32 C1720,32 1820,38 1886,43 L1886,132 L0,132 Z" fill="#0A1428" />
         </svg>
       )}
-      <div className="px-5 md:px-10 pt-16 md:pt-20 pb-8">
-        <div className="max-w-[1320px] mx-auto grid gap-12 lg:grid-cols-[auto_1fr_auto] lg:gap-14">
-          <div>
-            <img src={logoScp} alt="Sociedad Colombiana de Pediatría" className="h-[84px] w-auto mb-7" />
-            <div className="flex items-center gap-5">
-              {redesPie.map(({ label, href, Icono }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="text-white/80 hover:text-[#2BBCEA] transition-colors"
-                >
-                  <Icono size={22} fill="currentColor" strokeWidth={1.5} />
-                </a>
-              ))}
-            </div>
+      <div className="px-5 md:px-10 pt-16 pb-8">
+        <div className="max-w-[1320px] mx-auto grid gap-10 md:grid-cols-[1fr_auto_1fr] md:items-center">
+          <div className="flex items-center gap-6 justify-center md:justify-start">
+            <img src={logoMark} alt="Ruta EMI" className="h-9 w-auto [filter:brightness(0)_invert(1)]" />
+            <span className="h-9 w-px bg-white/25" aria-hidden="true" />
+            <img src={logoScp} alt="Sociedad Colombiana de Pediatría" className="h-14 w-auto" />
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
-            {columnasPie.map((col) => (
-              <div key={col.titulo}>
-                <h3 className="text-lg md:text-xl font-semibold tracking-[-0.01em] mb-5">{col.titulo}</h3>
-                <ul className="space-y-3">
-                  {col.enlaces.map((enlace) => (
-                    <li key={enlace.label}>
-                      <a
-                        href={enlace.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-start gap-3 text-[15px] font-semibold leading-snug text-white/90 hover:text-[#2BBCEA] transition-colors"
-                      >
-                        <span
-                          className="mt-[7px] h-2 w-2 shrink-0 rounded-full"
-                          style={{ backgroundColor: col.punto }}
-                          aria-hidden="true"
-                        />
-                        {enlace.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <p className="max-w-sm text-center text-sm leading-relaxed text-white/60">
+            Una ruta clínica para sospechar a tiempo, actuar con criterio y prevenir la Enfermedad Meningocócica
+            Invasiva en niños y adolescentes.
+          </p>
+          <nav className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-3" aria-label="Pie">
+            {enlacesV3.map((enlace) => (
+              <Link key={enlace.href} to={enlace.href} className="text-sm text-white/70 hover:text-[#2BBCEA] transition-colors">
+                {enlace.label}
+              </Link>
             ))}
-          </div>
-
-          <ul className="space-y-5 lg:max-w-[240px]">
-            {enlacesSueltosPie.map((enlace) => (
-              <li key={enlace.label}>
-                <a
-                  href={enlace.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg md:text-xl font-semibold leading-snug tracking-[-0.01em] hover:text-[#2BBCEA] transition-colors"
-                >
-                  {enlace.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          </nav>
         </div>
-
-        <p className="max-w-[1320px] mx-auto mt-14 pt-6 border-t border-white/10 text-center text-sm text-white/70">
-          Todos los derechos reservados © 2022. Diseñado por{' '}
-          <a href="https://e-me.co" target="_blank" rel="noopener noreferrer" className="hover:text-[#2BBCEA] transition-colors">
-            e-me.co
-          </a>
+        <p className="max-w-[1320px] mx-auto mt-14 text-center text-xs text-white/35">
+          © {new Date().getFullYear()} Ruta EMI. Todos los derechos reservados.
         </p>
       </div>
     </footer>

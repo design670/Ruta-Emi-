@@ -1,5 +1,5 @@
 import { ArrowUpRight, Award, Calendar, Clock, Monitor, Users } from 'lucide-react';
-import { HeroInterno, PaginaV3, VentanaRuta, botonNavy, useVentanaRuta } from './Layout';
+import { HeroInterno, PaginaV3, botonNavy } from './Layout';
 import { modulosCurso } from './content';
 import imgHero from '../../assets/curso/hero-certifiquese.jpg';
 import imgPilarReconoce from '../../assets/v3/pilar-reconoce.jpg';
@@ -28,8 +28,6 @@ const ficha = [
 ];
 
 export default function CursoPageV3() {
-  const ventana = useVentanaRuta();
-
   return (
     <PaginaV3>
       <HeroInterno
@@ -101,25 +99,14 @@ export default function CursoPageV3() {
               );
             })}
             <div className="v3-fila pt-10 flex justify-center">
-              <button
-                type="button"
-                onClick={ventana.alternar}
-                aria-expanded={ventana.abierta}
-                aria-controls="v3-certificacion"
-                className="v3-boton"
-                style={botonNavy}
-              >
-                Iniciar certificación
-                <ArrowUpRight
-                  size={15}
-                  className={`transition-transform duration-500 ${ventana.abierta ? 'rotate-90' : ''}`}
-                />
+              <button type="button" className="v3-boton" style={botonNavy}>
+                Inscríbete en la Ruta
+                <ArrowUpRight size={15} />
               </button>
             </div>
           </div>
         </div>
 
-        <VentanaRuta control={ventana} id="v3-certificacion" />
       </section>
     </PaginaV3>
   );

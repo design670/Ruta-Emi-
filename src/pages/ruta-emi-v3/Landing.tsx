@@ -426,6 +426,7 @@ export default function RutaEmiV3Landing() {
       <div
         ref={menuRef}
         id="v3-menu"
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-label="Menú principal"
@@ -696,25 +697,24 @@ export default function RutaEmiV3Landing() {
             />
           </div>
 
-          <div className="max-w-[1400px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-16 md:pb-24">
+          <div className="max-w-[1400px] mx-auto px-5 md:px-10 pt-14 md:pt-20 pb-16 md:pb-24">
+            <h3 data-lineas className="v3-serif text-center text-3xl md:text-4xl leading-[1.08] mb-6 md:mb-8">
+              <Lineas lineas={['Conoce a nuestros especialistas']} />
+            </h3>
             <div data-grupo>
               {modulosCurso.map((modulo) => (
-                <Link
+                <article
                   key={modulo.numero}
-                  to="/ruta-emi-v3/curso"
-                  className="v3-fila grid grid-cols-12 gap-4 items-baseline py-7 md:py-9"
+                  className="v3-fila v3-fila-hover grid grid-cols-12 gap-4 items-baseline py-7 md:py-9"
                 >
                   <span className="col-span-2 md:col-span-1 v3-etiqueta text-[#0D2967]/60">0{modulo.numero}</span>
                   <span className="col-span-10 md:col-span-7 v3-serif text-xl md:text-2xl leading-snug">
                     {modulo.titulo}
                   </span>
-                  <span className="col-start-3 col-span-8 md:col-start-auto md:col-span-3 text-sm text-[#0A1428]/60">
+                  <span className="col-start-3 col-span-8 md:col-start-auto md:col-span-4 md:text-right text-sm text-[#0A1428]/60">
                     {modulo.docente}
                   </span>
-                  <span className="hidden md:flex col-span-1 justify-end">
-                    <ArrowRight size={22} className="v3-fila-flecha" />
-                  </span>
-                </Link>
+                </article>
               ))}
               <div className="v3-fila pt-10 flex justify-center">
                 <Link

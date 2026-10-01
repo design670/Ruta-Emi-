@@ -1,5 +1,4 @@
-import { ArrowRight } from 'lucide-react';
-import { HeroInterno, PaginaV3, botonNavy } from './Layout';
+import { HeroInterno, PaginaV3 } from './Layout';
 import imgHero from '../../assets/v3/queeshero.jpg';
 import imgObjetivo1 from '../../assets/que-es/objetivo-1.jpg';
 import imgObjetivo2 from '../../assets/que-es/objetivo-2.jpg';
@@ -105,12 +104,6 @@ export default function QueEsPageV3() {
                 </p>
               </article>
             ))}
-            <div className="v3-fila pt-10 flex justify-center">
-              <button type="button" className="v3-boton" style={botonNavy}>
-                Ver el curso
-                <ArrowRight size={15} />
-              </button>
-            </div>
           </div>
         </div>
       </section>

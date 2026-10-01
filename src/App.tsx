@@ -10,6 +10,7 @@ import CursoPage from './pages/ruta-emi-v2/CursoPage';
 import CasosClinicosPage from './pages/ruta-emi-v2/CasosClinicosPage';
 import CasoDetallePage from './pages/ruta-emi-v2/CasoDetallePage';
 import RecursosPage from './pages/ruta-emi-v2/RecursosPage';
+import ScrollSuave from './components/ScrollSuave';
 import RutaEmiV3Landing from './pages/ruta-emi-v3/Landing';
 import CursoPageV3 from './pages/ruta-emi-v3/CursoPage';
 import QueEsPageV3 from './pages/ruta-emi-v3/QueEsPage';
@@ -20,6 +21,7 @@ import RecursosPageV3 from './pages/ruta-emi-v3/RecursosPage';
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollSuave />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/registro" element={<RegistroPage />} />
