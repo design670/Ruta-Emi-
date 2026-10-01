@@ -9,6 +9,13 @@
         "dev"
       ],
       "port": 5173
+    },
+    {
+      "name": "ruta-emi-2026",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/krist/OneDrive/Desktop/Eme Agencia/Ruta Emi 2026 Claude/node_modules/vite/bin/vite.js", "C:/Users/krist/OneDrive/Desktop/Eme Agencia/Ruta Emi 2026 Claude", "--config", "C:/Users/krist/OneDrive/Desktop/Eme Agencia/Ruta Emi 2026 Claude/vite.config.ts", "--port", "5180"],
+      "port": 5180,
+      "autoPort": true
     }
   ]
 }

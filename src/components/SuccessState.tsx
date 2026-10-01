@@ -20,7 +20,7 @@ export default function SuccessState({ title, message, email, showLoginLink = tr
 
       <h2
         className="text-2xl md:text-3xl font-bold text-[var(--navy)] mb-3"
-        style={{ fontFamily: "'Poppins', sans-serif" }}
+        style={{ fontFamily: "'Inter', sans-serif" }}
       >
         {title}
       </h2>

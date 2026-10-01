@@ -67,7 +67,7 @@ export default function AuthLayout({ eyebrow, title, description, children, show
             )}
             <h1
               className="text-3xl md:text-4xl font-bold text-[var(--navy)] mb-3 leading-tight"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
+              style={{ fontFamily: "'Inter', sans-serif" }}
             >
               {title}
             </h1>
