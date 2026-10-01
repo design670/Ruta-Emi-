@@ -88,8 +88,8 @@ export default function CasoDetallePageV3() {
       />
 
       <section className="px-5 md:px-10 pt-14 md:pt-20 pb-16 md:pb-24">
-        <div className="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8">
-          <article className="lg:col-span-8 lg:col-start-3">
+        <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <article className="min-w-0 break-words lg:col-span-8 lg:col-start-3">
             {/* Ficha del paciente, como en la página de la SCP: edad y sexo a la izquierda, el resto a la derecha */}
             <div className="grid sm:grid-cols-2 gap-x-12 gap-y-3 pb-10 mb-10 border-b border-[#0A1428]/10">
               {[
