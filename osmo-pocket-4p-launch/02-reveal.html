@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>
+<div id="spot" class="abs" style="left:0;top:0;width:1920px;height:1080px;background:radial-gradient(circle at 50% 46%, rgba(255,90,54,.28), rgba(124,92,255,.12) 30%, transparent 60%)"></div>
+<div id="cam" class="abs camera" style="left:810px;top:120px;width:300px;height:700px"></div>
+<div id="eyebrow" class="abs eyebrow" style="left:0;width:1920px;top:820px;text-align:center">Presentamos</div>
+<div id="name" class="abs h1 grad" style="left:0;width:1920px;top:860px;text-align:center;font-size:120px">OSMO POCKET 4P</div>
+<script type="module">
+import { prog, lerp, easeOut, easeBack, easeInOut, textIn, cameraSVG } from './lib.js';
+const $ = (id) => document.getElementById(id);
+$('cam').innerHTML = cameraSVG('c');
+window.film = {
+  duration: 6,
+  frame(t) {
+    const r = easeBack(prog(t, 0, 1.6));
+    const settle = easeInOut(prog(t, 2.6, 3.6));
+    const y = lerp(700, 0, r) - settle * 70, s = lerp(0.7, 1, r) - settle * 0.12;
+    $('cam').style.transform = `translateY(${y}px) scale(${s}) rotate(${lerp(-14, 0, r) + Math.sin(t * 1.2) * 1.2}deg)`;
+    $('spot').style.opacity = easeOut(prog(t, 0.2, 1.8));
+    $('spot').style.transform = `scale(${lerp(0.6, 1.1, easeOut(prog(t, 0, 6)))})`;
+    $('c-sweep').setAttribute('x', lerp(-250, 450, easeInOut(prog(t, 1.4, 2.6))));
+    textIn($('eyebrow'), t, 3.0, 0.6);
+    const n = easeOut(prog(t, 3.3, 4.3));
+    $('name').style.opacity = n;
+    $('name').style.letterSpacing = `${lerp(0.3, -0.04, n)}em`;
+    $('name').style.filter = `blur(${(1 - n) * 16}px)`;
+  },
+};
+</script></body></html>

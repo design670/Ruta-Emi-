@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>
+<div class="abs" style="left:0;top:0;width:1920px;height:1080px;background:linear-gradient(135deg,#1d2c4a,#0f1830)"></div>
+<div id="cam" class="abs camera" style="left:1210px;top:140px;width:260px;height:607px"></div>
+<svg class="abs" style="left:1040px;top:460px;width:600px;height:640px" viewBox="0 0 600 640">
+  <defs><linearGradient id="den" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d5a8c"/><stop offset="1" stop-color="#22355a"/></linearGradient></defs>
+  <path d="M20 40 Q300 110 580 40 L560 600 Q300 650 40 600 Z" fill="url(#den)"/>
+  <path d="M44 70 Q300 138 556 70" fill="none" stroke="#e6a84f" stroke-width="4" stroke-dasharray="14 10"/>
+  <path d="M60 110 L48 580" stroke="#e6a84f" stroke-width="3" stroke-dasharray="12 10" opacity=".7"/>
+  <path d="M540 110 L552 580" stroke="#e6a84f" stroke-width="3" stroke-dasharray="12 10" opacity=".7"/>
+</svg>
+<div id="eye" class="abs eyebrow" style="left:160px;top:380px">Diseño de bolsillo</div>
+<div id="t1" class="abs h2" style="left:160px;top:430px">Cabe en tu bolsillo.</div>
+<div id="t2" class="abs h2 grad" style="left:160px;top:530px">Siempre lista.</div>
+<script type="module">
+import { prog, lerp, easeInOut, textIn, cameraSVG } from './lib.js';
+const $ = (id) => document.getElementById(id);
+$('cam').innerHTML = cameraSVG('c');
+window.film = {
+  duration: 4,
+  frame(t) {
+    const d = easeInOut(prog(t, 0.6, 2.2));
+    $('cam').style.transform = `translateY(${lerp(-520, 120, d)}px) rotate(${lerp(-20, 0, d)}deg)`;
+    textIn($('eye'), t, 0.1, 0.6); textIn($('t1'), t, 0.3, 0.7); textIn($('t2'), t, 1.9, 0.7);
+  },
+};
+</script></body></html>

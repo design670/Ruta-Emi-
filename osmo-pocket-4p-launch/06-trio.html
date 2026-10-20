@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>
+<div id="bg" class="abs" style="left:0;top:0;width:1920px;height:1080px"></div>
+<div id="w" class="abs h1" style="left:0;width:1920px;top:440px;text-align:center;font-size:220px"></div>
+<div id="s" class="abs p" style="left:0;width:1920px;top:700px;text-align:center;color:rgba(255,255,255,.75)"></div>
+<script type="module">
+import { prog, lerp, easeOut } from './lib.js';
+const $ = (id) => document.getElementById(id);
+const words = [
+  ['Graba.', 'Con un toque.', '#ff5a36'],
+  ['Sigue.', 'Te mantiene en cuadro.', '#7c5cff'],
+  ['Comparte.', 'Directo a tu teléfono.', '#111216'],
+];
+const beat = 1.5;
+window.film = {
+  duration: 4.5,
+  frame(t) {
+    const i = Math.min(2, Math.floor(t / beat)), lt = t - i * beat;
+    const [word, sub, color] = words[i];
+    $('bg').style.background = color;
+    const p = easeOut(prog(lt, 0, 0.45));
+    $('w').textContent = word;
+    $('w').style.transform = `scale(${lerp(1.35, 1, p)})`;
+    $('w').style.opacity = 0.25 + 0.75 * p;
+    $('s').textContent = sub;
+    $('s').style.opacity = easeOut(prog(lt, 0.25, 0.7));
+  },
+};
+</script></body></html>

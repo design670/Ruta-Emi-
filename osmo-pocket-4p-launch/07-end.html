@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>
+<div id="spot" class="abs" style="left:0;top:0;width:1920px;height:1080px;background:radial-gradient(circle at 30% 50%, rgba(255,90,54,.22), rgba(124,92,255,.1) 35%, transparent 60%)"></div>
+<div id="cam" class="abs camera" style="left:420px;top:190px;width:300px;height:700px"></div>
+<div id="name" class="abs h1 grad" style="left:860px;top:380px;font-size:130px">OSMO<br>POCKET 4P</div>
+<div id="tag" class="abs p" style="left:866px;top:660px;color:#d8dbe1">Lo pequeño captura lo grande.</div>
+<div id="soon" class="abs eyebrow" style="left:866px;top:740px">Muy pronto</div>
+<div id="black" class="abs" style="left:0;top:0;width:1920px;height:1080px;background:#000"></div>
+<script type="module">
+import { prog, lerp, easeOut, textIn, cameraSVG } from './lib.js';
+const $ = (id) => document.getElementById(id);
+$('cam').innerHTML = cameraSVG('c');
+window.film = {
+  duration: 5.5,
+  frame(t) {
+    const a = easeOut(prog(t, 0, 1.2));
+    $('cam').style.transform = `translateX(${lerp(-80, 0, a)}px) rotate(${Math.sin(t * 0.9) * 2}deg)`;
+    $('cam').style.opacity = a;
+    $('spot').style.opacity = a;
+    $('c-sweep').setAttribute('x', lerp(-250, 450, easeOut(prog(t, 1.4, 2.6))));
+    textIn($('name'), t, 0.3, 0.9); textIn($('tag'), t, 1.0, 0.8); textIn($('soon'), t, 1.6, 0.8);
+    $('black').style.opacity = prog(t, 4.6, 5.5);
+  },
+};
+</script></body></html>
